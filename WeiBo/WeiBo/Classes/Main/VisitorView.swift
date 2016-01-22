@@ -8,20 +8,27 @@
 
 import UIKit
 
-class VisitorView: UIView {
+protocol VisitorViewDelegate: NSObjectProtocol {
+    func loginBtnWillClick()
+    func registerBtnWillClick()
+}
 
+class VisitorView: UIView {
+    
+    weak var delegate: VisitorViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(iconView)
         addSubview(maskBGView)
-        addSubview(homeView)
+        addSubview(homeIcon)
         addSubview(messageLabel)
         addSubview(loginButton)
         addSubview(registerButton)
-        
+
         iconView.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: nil)
-        homeView.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: nil)
+        homeIcon.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: nil)
         
         messageLabel.xmg_AlignHorizontal(type: XMG_AlignType.BottomCenter, referView: iconView, size: nil)
         let widthCons = NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 224)
@@ -36,8 +43,39 @@ class VisitorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupVisitorInfo(isHome: Bool, imageName: String, message: String) {
+        iconView.hidden   = !isHome
+        homeIcon.image    = UIImage(named: imageName)
+        messageLabel.text = message
+        
+        if isHome {
+            startAnimation()
+        }
+    }
+    
+    private func startAnimation() {
+        let anim = CABasicAnimation(keyPath: "transform.rotation")
+        anim.toValue = 2 * M_PI
+        anim.duration = 20
+        anim.repeatCount = MAXFLOAT
+        
+        //不移除动画
+        anim.removedOnCompletion = false
+        
+        iconView.layer.addAnimation(anim, forKey: nil)
+    }
+    
+    // MARK: -按钮点击
+    func loginBtnClick() {
+        delegate?.loginBtnWillClick()
+    }
+    
+    func registerBtnClick() {
+        delegate?.registerBtnWillClick()
+    }
+    
     // MARK: - 懒加载控件
-    // 转盘
+    /// 转盘
     private lazy var iconView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "visitordiscover_feed_image_smallicon"))
         
@@ -45,7 +83,7 @@ class VisitorView: UIView {
     }()
     
     // 图标
-    private lazy var homeView: UIImageView = {
+    private lazy var homeIcon: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "visitordiscover_feed_image_house"))
         
         return iv
@@ -67,6 +105,7 @@ class VisitorView: UIView {
         btn.setTitle("登陆", forState: UIControlState.Normal)
         btn.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
         btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), forState: UIControlState.Normal)
+        btn.addTarget(self, action: "loginBtnClick", forControlEvents: UIControlEvents.TouchUpInside)
         
         return btn
     }()
@@ -77,7 +116,8 @@ class VisitorView: UIView {
         btn.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
         btn.setTitle("注册", forState: UIControlState.Normal)
         btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), forState: UIControlState.Normal)
-        
+        btn.addTarget(self, action: "registerBtnClick", forControlEvents: UIControlEvents.TouchUpInside)
+
         return btn
     }()
     
