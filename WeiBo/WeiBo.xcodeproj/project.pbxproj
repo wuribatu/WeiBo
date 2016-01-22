@@ -16,6 +16,7 @@
 		A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481AE1C523CEF0071EFFF /* DiscoverTableViewController.swift */; };
 		A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481B01C523D000071EFFF /* MessageTableViewController.swift */; };
 		A00481B31C523D0B0071EFFF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481B21C523D0B0071EFFF /* ProfileTableViewController.swift */; };
+		A00481B71C5256E60071EFFF /* MainVCSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = A00481B51C5256E60071EFFF /* MainVCSettings.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		A00481AE1C523CEF0071EFFF /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		A00481B01C523D000071EFFF /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		A00481B21C523D0B0071EFFF /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		A00481B51C5256E60071EFFF /* MainVCSettings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainVCSettings.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				A00481AA1C523CAE0071EFFF /* MainViewController.swift */,
+				A00481B41C5256E60071EFFF /* Resource */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -193,6 +196,14 @@
 			children = (
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		A00481B41C5256E60071EFFF /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				A00481B51C5256E60071EFFF /* MainVCSettings.json */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00481B71C5256E60071EFFF /* MainVCSettings.json in Resources */,
 				A004817C1C5228A90071EFFF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
