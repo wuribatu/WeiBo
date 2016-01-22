@@ -17,6 +17,10 @@
 		A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481B01C523D000071EFFF /* MessageTableViewController.swift */; };
 		A00481B31C523D0B0071EFFF /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481B21C523D0B0071EFFF /* ProfileTableViewController.swift */; };
 		A00481B71C5256E60071EFFF /* MainVCSettings.json in Resources */ = {isa = PBXBuildFile; fileRef = A00481B51C5256E60071EFFF /* MainVCSettings.json */; };
+		A007F0781C528C5E00523691 /* NullTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F0771C528C5E00523691 /* NullTableViewController.swift */; };
+		A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F0791C529BA000523691 /* BaseTableViewController.swift */; };
+		A007F07C1C529FB300523691 /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F07B1C529FB300523691 /* VisitorView.swift */; };
+		A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		A00481B01C523D000071EFFF /* MessageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageTableViewController.swift; sourceTree = "<group>"; };
 		A00481B21C523D0B0071EFFF /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		A00481B51C5256E60071EFFF /* MainVCSettings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainVCSettings.json; sourceTree = "<group>"; };
+		A007F0771C528C5E00523691 /* NullTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullTableViewController.swift; sourceTree = "<group>"; };
+		A007F0791C529BA000523691 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		A007F07B1C529FB300523691 /* VisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
+		A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				A00481AA1C523CAE0071EFFF /* MainViewController.swift */,
+				A007F0791C529BA000523691 /* BaseTableViewController.swift */,
+				A007F07B1C529FB300523691 /* VisitorView.swift */,
 				A00481B41C5256E60071EFFF /* Resource */,
 			);
 			path = Main;
@@ -194,6 +204,7 @@
 		A00481A91C523BDA0071EFFF /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -202,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				A00481B51C5256E60071EFFF /* MainVCSettings.json */,
+				A007F0771C528C5E00523691 /* NullTableViewController.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -337,9 +349,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A00481B31C523D0B0071EFFF /* ProfileTableViewController.swift in Sources */,
+				A007F0781C528C5E00523691 /* NullTableViewController.swift in Sources */,
+				A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */,
 				A00481AD1C523CC80071EFFF /* HomeTableViewController.swift in Sources */,
 				A00481AB1C523CAE0071EFFF /* MainViewController.swift in Sources */,
+				A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */,
 				A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */,
+				A007F07C1C529FB300523691 /* VisitorView.swift in Sources */,
 				A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */,
 				A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */,
 			);
@@ -553,6 +569,7 @@
 				A004819B1C5228A90071EFFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A004819C1C5228A90071EFFF /* Build configuration list for PBXNativeTarget "WeiBoTests" */ = {
 			isa = XCConfigurationList;
@@ -561,6 +578,7 @@
 				A004819E1C5228A90071EFFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A004819F1C5228A90071EFFF /* Build configuration list for PBXNativeTarget "WeiBoUITests" */ = {
 			isa = XCConfigurationList;
@@ -569,6 +587,7 @@
 				A00481A11C5228A90071EFFF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

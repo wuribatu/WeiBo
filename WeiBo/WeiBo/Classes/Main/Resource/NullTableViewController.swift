@@ -1,14 +1,14 @@
 //
-//  ProfileTableViewController.swift
+//  NullTableViewController.swift
 //  WeiBo
 //
-//  Created by 乌日巴图 on 16/1/22.
+//  Created by 乌日巴图 on 16/1/23.
 //  Copyright © 2016年 wuribatu. All rights reserved.
 //
 
 import UIKit
 
-class ProfileTableViewController: BaseTableViewController {
+class NullTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
