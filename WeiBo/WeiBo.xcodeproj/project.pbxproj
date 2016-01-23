@@ -12,6 +12,7 @@
 		A003C90B1C53DC1200575C7A /* PopoverViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A003C90A1C53DC1200575C7A /* PopoverViewController.storyboard */; };
 		A003C90F1C53E54C00575C7A /* PopoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C90E1C53E54C00575C7A /* PopoverPresentationController.swift */; };
 		A003C9111C53E5CA00575C7A /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9101C53E5CA00575C7A /* PopoverViewController.swift */; };
+		A003C9131C5404D800575C7A /* PopoverAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9121C5404D800575C7A /* PopoverAnimator.swift */; };
 		A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481741C5228A90071EFFF /* AppDelegate.swift */; };
 		A004817C1C5228A90071EFFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A004817B1C5228A90071EFFF /* Assets.xcassets */; };
 		A004818A1C5228A90071EFFF /* WeiBoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481891C5228A90071EFFF /* WeiBoTests.swift */; };
@@ -51,6 +52,7 @@
 		A003C90A1C53DC1200575C7A /* PopoverViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopoverViewController.storyboard; sourceTree = "<group>"; };
 		A003C90E1C53E54C00575C7A /* PopoverPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationController.swift; sourceTree = "<group>"; };
 		A003C9101C53E5CA00575C7A /* PopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
+		A003C9121C5404D800575C7A /* PopoverAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverAnimator.swift; sourceTree = "<group>"; };
 		A00481711C5228A90071EFFF /* WeiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00481741C5228A90071EFFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A004817B1C5228A90071EFFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				A003C90A1C53DC1200575C7A /* PopoverViewController.storyboard */,
 				A003C9101C53E5CA00575C7A /* PopoverViewController.swift */,
 				A003C90E1C53E54C00575C7A /* PopoverPresentationController.swift */,
+				A003C9121C5404D800575C7A /* PopoverAnimator.swift */,
 			);
 			path = Popover;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */,
 				A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */,
 				A007F07C1C529FB300523691 /* VisitorView.swift in Sources */,
+				A003C9131C5404D800575C7A /* PopoverAnimator.swift in Sources */,
 				A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */,
 				A003C9081C53CDB600575C7A /* TitleButton.swift in Sources */,
 				A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */,

@@ -10,12 +10,18 @@ import UIKit
 
 class PopoverPresentationController: UIPresentationController {
 
+    var presentFrame = CGRectZero
+    
     override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {
         super.init(presentedViewController: presentedViewController, presentingViewController: presentingViewController)
     }
     
     override func containerViewWillLayoutSubviews() {
-        presentedView()?.frame = CGRect(x: 100, y: 56, width: 200, height: 200)
+        if presentFrame == CGRectZero {
+            presentedView()?.frame = CGRect(x: 100, y: 56, width: 200, height: 200)
+        } else {
+            presentedView()?.frame = presentFrame
+        }
         containerView?.insertSubview(coverView, atIndex: 0)
     }
     

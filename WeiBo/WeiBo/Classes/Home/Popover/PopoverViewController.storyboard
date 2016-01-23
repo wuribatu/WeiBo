@@ -29,7 +29,7 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="olD-aN-kN2" firstAttribute="leading" secondItem="ZW9-tF-htt" secondAttribute="leadingMargin" id="3pB-eY-uod"/>
                             <constraint firstItem="gcz-e3-Enx" firstAttribute="top" secondItem="ZW9-tF-htt" secondAttribute="topMargin" constant="20" id="5zp-gv-4nr"/>
@@ -37,7 +37,6 @@
                             <constraint firstAttribute="bottomMargin" secondItem="gcz-e3-Enx" secondAttribute="bottom" constant="20" id="W4y-8B-GyR"/>
                             <constraint firstItem="gcz-e3-Enx" firstAttribute="leading" secondItem="ZW9-tF-htt" secondAttribute="leadingMargin" constant="20" id="g8R-iR-Ts2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gcz-e3-Enx" secondAttribute="trailing" constant="20" id="igz-NI-ZPK"/>
-                            <constraint firstItem="kdj-NH-48O" firstAttribute="top" secondItem="gcz-e3-Enx" secondAttribute="bottom" constant="20" id="ufl-Kz-eIp"/>
                             <constraint firstItem="kdj-NH-48O" firstAttribute="top" secondItem="olD-aN-kN2" secondAttribute="bottom" id="vG8-PT-ReS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="olD-aN-kN2" secondAttribute="trailing" id="was-jo-njC"/>
                         </constraints>
