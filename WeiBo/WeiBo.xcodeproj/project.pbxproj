@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A003C9061C53BFCC00575C7A /* UIBarButtonItem+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */; };
+		A003C9081C53CDB600575C7A /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9071C53CDB600575C7A /* TitleButton.swift */; };
 		A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481741C5228A90071EFFF /* AppDelegate.swift */; };
 		A004817C1C5228A90071EFFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A004817B1C5228A90071EFFF /* Assets.xcassets */; };
 		A004818A1C5228A90071EFFF /* WeiBoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481891C5228A90071EFFF /* WeiBoTests.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Category.swift"; sourceTree = "<group>"; };
+		A003C9071C53CDB600575C7A /* TitleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
 		A00481711C5228A90071EFFF /* WeiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00481741C5228A90071EFFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A004817B1C5228A90071EFFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */,
+				A003C9071C53CDB600575C7A /* TitleButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */,
 				A007F07C1C529FB300523691 /* VisitorView.swift in Sources */,
 				A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */,
+				A003C9081C53CDB600575C7A /* TitleButton.swift in Sources */,
 				A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
