@@ -38,6 +38,12 @@ class HomeTableViewController: BaseTableViewController {
     
     func titleBtnClick(titleBtn: TitleButton) {
         titleBtn.selected = !titleBtn.selected
+        
+        let sb = UIStoryboard(name: "PopoverViewController", bundle: nil)
+        let vc = sb.instantiateInitialViewController()
+        vc?.transitioningDelegate = self
+        vc?.modalPresentationStyle = .Custom
+        presentViewController(vc!, animated: true, completion: nil)
     }
         
     func leftBtnClick() {
@@ -46,5 +52,12 @@ class HomeTableViewController: BaseTableViewController {
     
     func rightBtnClick() {
         print(__FUNCTION__)
+    }
+}
+
+extension BaseTableViewController: UIViewControllerTransitioningDelegate {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+     
+        return PopoverPresentationController(presentedViewController: presented, presentingViewController: presenting)
     }
 }

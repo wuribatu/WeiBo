@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4xN-9v-zh2">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Popover View Controller-->
+        <scene sceneID="eUV-vI-FDw">
+            <objects>
+                <viewController id="4xN-9v-zh2" customClass="PopoverViewController" customModule="WeiBo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6CZ-pn-uRi"/>
+                        <viewControllerLayoutGuide type="bottom" id="kdj-NH-48O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZW9-tF-htt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="popover_background" translatesAutoresizingMaskIntoConstraints="NO" id="olD-aN-kN2">
+                                <rect key="frame" x="20" y="20" width="560" height="580"/>
+                                <animations/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gcz-e3-Enx">
+                                <rect key="frame" x="40" y="20" width="520" height="560"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="olD-aN-kN2" firstAttribute="leading" secondItem="ZW9-tF-htt" secondAttribute="leadingMargin" id="3pB-eY-uod"/>
+                            <constraint firstItem="gcz-e3-Enx" firstAttribute="top" secondItem="ZW9-tF-htt" secondAttribute="topMargin" constant="20" id="5zp-gv-4nr"/>
+                            <constraint firstItem="olD-aN-kN2" firstAttribute="top" secondItem="6CZ-pn-uRi" secondAttribute="bottom" id="9TF-cq-wdE"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gcz-e3-Enx" secondAttribute="bottom" constant="20" id="W4y-8B-GyR"/>
+                            <constraint firstItem="gcz-e3-Enx" firstAttribute="leading" secondItem="ZW9-tF-htt" secondAttribute="leadingMargin" constant="20" id="g8R-iR-Ts2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gcz-e3-Enx" secondAttribute="trailing" constant="20" id="igz-NI-ZPK"/>
+                            <constraint firstItem="kdj-NH-48O" firstAttribute="top" secondItem="gcz-e3-Enx" secondAttribute="bottom" constant="20" id="ufl-Kz-eIp"/>
+                            <constraint firstItem="kdj-NH-48O" firstAttribute="top" secondItem="olD-aN-kN2" secondAttribute="bottom" id="vG8-PT-ReS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="olD-aN-kN2" secondAttribute="trailing" id="was-jo-njC"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1yi-fg-cVl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="797" y="-62"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="popover_background" width="217" height="49"/>
+    </resources>
+</document>
