@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A003C9061C53BFCC00575C7A /* UIBarButtonItem+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */; };
 		A00481751C5228A90071EFFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481741C5228A90071EFFF /* AppDelegate.swift */; };
 		A004817C1C5228A90071EFFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A004817B1C5228A90071EFFF /* Assets.xcassets */; };
 		A004818A1C5228A90071EFFF /* WeiBoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00481891C5228A90071EFFF /* WeiBoTests.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Category.swift"; sourceTree = "<group>"; };
 		A00481711C5228A90071EFFF /* WeiBo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiBo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00481741C5228A90071EFFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A004817B1C5228A90071EFFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 		A00481A31C523BDA0071EFFF /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */,
 				A00481AD1C523CC80071EFFF /* HomeTableViewController.swift in Sources */,
 				A00481AB1C523CAE0071EFFF /* MainViewController.swift in Sources */,
+				A003C9061C53BFCC00575C7A /* UIBarButtonItem+Category.swift in Sources */,
 				A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */,
 				A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */,
 				A007F07C1C529FB300523691 /* VisitorView.swift in Sources */,
