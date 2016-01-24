@@ -5,6 +5,20 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 51,
+          "top" : 50,
+          "right" : 51,
+          "left" : 50
+        }
+      },
       "idiom" : "universal",
       "filename" : "qrcode_border@2x.png",
       "scale" : "2x"
