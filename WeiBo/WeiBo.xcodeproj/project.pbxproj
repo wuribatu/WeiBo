@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C9E26655BE0875910F2BEFF /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01608DF6FC226A9755C981A7 /* Pods.framework */; };
 		A003C9061C53BFCC00575C7A /* UIBarButtonItem+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */; };
 		A003C9081C53CDB600575C7A /* TitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A003C9071C53CDB600575C7A /* TitleButton.swift */; };
 		A003C90B1C53DC1200575C7A /* PopoverViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A003C90A1C53DC1200575C7A /* PopoverViewController.storyboard */; };
@@ -50,6 +51,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01608DF6FC226A9755C981A7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4549C0B86E3B7C9BDC1ECA59 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		85048AABAB31CA72F7BCF05F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A003C9051C53BFCC00575C7A /* UIBarButtonItem+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Category.swift"; sourceTree = "<group>"; };
 		A003C9071C53CDB600575C7A /* TitleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleButton.swift; sourceTree = "<group>"; };
 		A003C90A1C53DC1200575C7A /* PopoverViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PopoverViewController.storyboard; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C9E26655BE0875910F2BEFF /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +111,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62E038A4F312594B9D12AF1F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85048AABAB31CA72F7BCF05F /* Pods.debug.xcconfig */,
+				4549C0B86E3B7C9BDC1ECA59 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		76763B6EEC35B5FDAD58AD7D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01608DF6FC226A9755C981A7 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A003C9091C53D8D600575C7A /* Popover */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +156,8 @@
 				A00481881C5228A90071EFFF /* WeiBoTests */,
 				A00481931C5228A90071EFFF /* WeiBoUITests */,
 				A00481721C5228A90071EFFF /* Products */,
+				62E038A4F312594B9D12AF1F /* Pods */,
+				76763B6EEC35B5FDAD58AD7D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,9 +292,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A00481991C5228A90071EFFF /* Build configuration list for PBXNativeTarget "WeiBo" */;
 			buildPhases = (
+				6A8D6B922DD17B212F889B1C /* Check Pods Manifest.lock */,
 				A004816D1C5228A90071EFFF /* Sources */,
 				A004816E1C5228A90071EFFF /* Frameworks */,
 				A004816F1C5228A90071EFFF /* Resources */,
+				F8192B58897B10BF6646DA57 /* Embed Pods Frameworks */,
+				B3BBE7C00B6366624EE9D3ED /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -388,6 +415,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6A8D6B922DD17B212F889B1C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B3BBE7C00B6366624EE9D3ED /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8192B58897B10BF6646DA57 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A004816D1C5228A90071EFFF /* Sources */ = {
@@ -531,6 +606,7 @@
 		};
 		A004819A1C5228A90071EFFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85048AABAB31CA72F7BCF05F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -547,6 +623,7 @@
 		};
 		A004819B1C5228A90071EFFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4549C0B86E3B7C9BDC1ECA59 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
