@@ -10,7 +10,7 @@ import UIKit
 
 class BaseTableViewController: UITableViewController {
 
-    var userLogin = true
+    var userLogin = UserAccount.userLogin()
     var visitorView = VisitorView()
     
     override func loadView() {
@@ -25,17 +25,20 @@ class BaseTableViewController: UITableViewController {
         visitorView = custView
         custView.delegate = self
         
-        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "注册", style: UIBarButtonItemStyle.Plain, target: self, action: "loginBtnWillClick")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: UIBarButtonItemStyle.Plain, target: self, action: "registerBtnWillClick")
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "注册", style: UIBarButtonItemStyle.Plain, target: self, action: "registerBtnWillClick")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: UIBarButtonItemStyle.Plain, target: self, action: "loginBtnWillClick")
     }
 }
 
 extension BaseTableViewController: VisitorViewDelegate {
     func loginBtnWillClick() {
-        print(__FUNCTION__)
+        let OAuthVC = OAuthViewController()
+        let nav = UINavigationController(rootViewController: OAuthVC)
+        presentViewController(nav, animated: true, completion: nil)
     }
     
     func registerBtnWillClick() {
         print(__FUNCTION__)
+        print(NetworkTools.shareNetwordTools())
     }
 }
