@@ -30,6 +30,8 @@
 		A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F0791C529BA000523691 /* BaseTableViewController.swift */; };
 		A007F07C1C529FB300523691 /* VisitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F07B1C529FB300523691 /* VisitorView.swift */; };
 		A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */; };
+		A00CDE6A1C59DD5D0009D6E6 /* NewfeatureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00CDE691C59DD5D0009D6E6 /* NewfeatureCollectionViewController.swift */; };
+		A00CDE6C1C5A533A0009D6E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00CDE6B1C5A533A0009D6E6 /* WelcomeViewController.swift */; };
 		A0F90F841C570DD100F65BDF /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F90F831C570DD100F65BDF /* OAuthViewController.swift */; };
 		A0F90F861C57202400F65BDF /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F90F851C57202400F65BDF /* NetworkTools.swift */; };
 		A0F90FC71C5756C200F65BDF /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F90FC61C5756C100F65BDF /* UserAccount.swift */; };
@@ -86,6 +88,8 @@
 		A007F0791C529BA000523691 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		A007F07B1C529FB300523691 /* VisitorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitorView.swift; sourceTree = "<group>"; };
 		A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
+		A00CDE691C59DD5D0009D6E6 /* NewfeatureCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewfeatureCollectionViewController.swift; sourceTree = "<group>"; };
+		A00CDE6B1C5A533A0009D6E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		A0F90F831C570DD100F65BDF /* OAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthViewController.swift; sourceTree = "<group>"; };
 		A0F90F851C57202400F65BDF /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		A0F90FC61C5756C100F65BDF /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 		A00481A21C523BDA0071EFFF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A00CDE661C59DCA90009D6E6 /* Newfeature */,
 				A0F90F821C570DBF00F65BDF /* OAuth */,
 				A00481A31C523BDA0071EFFF /* Common */,
 				A00481A41C523BDA0071EFFF /* Discover */,
@@ -294,6 +299,15 @@
 				A007F0771C528C5E00523691 /* NullTableViewController.swift */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		A00CDE661C59DCA90009D6E6 /* Newfeature */ = {
+			isa = PBXGroup;
+			children = (
+				A00CDE691C59DD5D0009D6E6 /* NewfeatureCollectionViewController.swift */,
+				A00CDE6B1C5A533A0009D6E6 /* WelcomeViewController.swift */,
+			);
+			path = Newfeature;
 			sourceTree = "<group>";
 		};
 		A0F90F821C570DBF00F65BDF /* OAuth */ = {
@@ -494,6 +508,7 @@
 				A003C9181C5418E000575C7A /* QRCodeViewController.swift in Sources */,
 				A003C9111C53E5CA00575C7A /* PopoverViewController.swift in Sources */,
 				A0F90FC71C5756C200F65BDF /* UserAccount.swift in Sources */,
+				A00CDE6C1C5A533A0009D6E6 /* WelcomeViewController.swift in Sources */,
 				A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */,
 				A0F90F861C57202400F65BDF /* NetworkTools.swift in Sources */,
 				A00481AD1C523CC80071EFFF /* HomeTableViewController.swift in Sources */,
@@ -503,6 +518,7 @@
 				A007F07E1C52A43000523691 /* UIView+AutoLayout.swift in Sources */,
 				A0F90F841C570DD100F65BDF /* OAuthViewController.swift in Sources */,
 				A00481AF1C523CEF0071EFFF /* DiscoverTableViewController.swift in Sources */,
+				A00CDE6A1C59DD5D0009D6E6 /* NewfeatureCollectionViewController.swift in Sources */,
 				A007F07C1C529FB300523691 /* VisitorView.swift in Sources */,
 				A003C9131C5404D800575C7A /* PopoverAnimator.swift in Sources */,
 				A00481B11C523D000071EFFF /* MessageTableViewController.swift in Sources */,
