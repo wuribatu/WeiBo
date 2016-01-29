@@ -103,7 +103,7 @@ class NewfeatureCell: UICollectionViewCell {
     }()
     
     func startBtnClick() {
-        print(__FUNCTION__ )
+        NSNotificationCenter.defaultCenter().postNotificationName(XMGSwitchRootViewControllerKey, object: true)
     }
 }
 

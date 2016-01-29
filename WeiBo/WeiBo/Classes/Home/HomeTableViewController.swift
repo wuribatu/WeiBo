@@ -7,10 +7,17 @@
 //
 
 import UIKit
+import SVProgressHUD
 
+let HomeIdentifier = "HomeIdentifier"
 class HomeTableViewController: BaseTableViewController {
     
     var isPresented: Bool = false //没有打开菜单
+    var statuses: [Status]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +25,30 @@ class HomeTableViewController: BaseTableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: BTPopoverAnimatorWillShow, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: BTPopoverAnimatorWillDismiss, object: nil)
         
+        
         if !userLogin {
             visitorView.setupVisitorInfo(true, imageName: "visitordiscover_feed_image_house", message: "关注一些人，回这里看看有什么惊喜")
             return
         }
         
+        tableView.registerClass(StatusTableViewCell.self, forCellReuseIdentifier: HomeIdentifier)
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        
         setupNav()
+        
+//        加载微博数据
+        loadData()
+    }
+    
+    private func loadData() {
+        Status.loadStatuses {(models, error) -> () in
+            if error != nil {
+                return
+            }
+            self.statuses = models
+        }
     }
     
     func change() {
@@ -73,4 +98,19 @@ class HomeTableViewController: BaseTableViewController {
         po.presentFrame = CGRect(x: 100, y: 56, width: 200, height: 350)
         return po
     }()
+}
+
+extension HomeTableViewController {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return statuses?.count ?? 0
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(HomeIdentifier, forIndexPath: indexPath) as! StatusTableViewCell
+        
+        let status = statuses![indexPath.row]
+        cell.status = status
+        
+        return cell
+    }
 }
