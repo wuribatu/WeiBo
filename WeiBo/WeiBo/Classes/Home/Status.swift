@@ -10,15 +10,34 @@ import UIKit
 
 class Status: NSObject {
     /// 微博创建时间
-    var created_at: String?
+    var created_at: String? {
+        didSet {
+//            created_at = "Sat Jan 1 21:37:09 +0800 2016"
+            // 1.将字符串转换为时间
+            let createdDate = NSDate.dateWithString(created_at!)
+            // 2.获取格式化之后的时间字符串
+            
+            created_at = createdDate.descDate
+        }
+    }
     /// 微博ID
     var id: Int = 0
     /// 微博信息内容
     var text: String?
     /// 微博来源
-    var source: String?
+    var source: String? {
+        didSet {
+            if let str = source {
+                if str != "" {
+                    let starLocation = (str as NSString).rangeOfString(">").location + 1
+                    let length = (str as NSString).rangeOfString("<", options: NSStringCompareOptions.BackwardsSearch).location - starLocation
+                    source = "来自:" + (str as NSString).substringWithRange(NSMakeRange(starLocation, length))
+                }
+            }
+        }
+    }
     /// 配图数组
-    var pic_urls: [[String: AnyObject]]?
+    var pic_urls: [[String: AnyObject]]? 
     /// 用户信息
     var user: User?
     
@@ -29,6 +48,9 @@ class Status: NSObject {
             
 //            print(JSON)
             let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
+            
+            //缓存配图数组
+            
 //            print(models)
             finished(models: models, error: nil)
             }) { (_, error) -> Void in

@@ -11,12 +11,15 @@ import UIKit
 class StatusTableViewCell: UITableViewCell {
     var status: Status? {
         didSet {
-            iconView.sd_setImageWithURL(NSURL(string: (status!.user!.profile_image_url)!))
             nameLabel.text = status?.user?.name
-            timeLabel.text = "刚刚"
-            sourceLabel.text = "来自: 小霸王学习机"
+            timeLabel.text = status?.created_at
+            sourceLabel.text = status?.source
             contentLabel.text = status?.text
-
+            if let url = status?.user?.imageURL {
+                iconView.sd_setImageWithURL(url)
+            }
+            verifiedView.image = status?.user?.verifiedImage
+            vipView.image = status?.user?.mbrankImage
         }
     }
     

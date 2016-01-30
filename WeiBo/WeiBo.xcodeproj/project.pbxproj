@@ -42,6 +42,7 @@
 		A0F90FC71C5756C200F65BDF /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F90FC61C5756C100F65BDF /* UserAccount.swift */; };
 		A0F90FC91C578A0500F65BDF /* String+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F90FC81C578A0500F65BDF /* String+Category.swift */; };
 		A0FC3BD01C558D2D00872A56 /* QRCodeCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FC3BCF1C558D2D00872A56 /* QRCodeCardViewController.swift */; };
+		A0FEE85A1C5CE7FC00EE0406 /* NSDate+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FEE8591C5CE7FC00EE0406 /* NSDate+Category.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		A0F90FC61C5756C100F65BDF /* UserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		A0F90FC81C578A0500F65BDF /* String+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Category.swift"; sourceTree = "<group>"; };
 		A0FC3BCF1C558D2D00872A56 /* QRCodeCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeCardViewController.swift; sourceTree = "<group>"; };
+		A0FEE8591C5CE7FC00EE0406 /* NSDate+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Category.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				A007F07D1C52A43000523691 /* UIView+AutoLayout.swift */,
 				A0F90F851C57202400F65BDF /* NetworkTools.swift */,
 				A0F90FC81C578A0500F65BDF /* String+Category.swift */,
+				A0FEE8591C5CE7FC00EE0406 /* NSDate+Category.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 				A0F90FC71C5756C200F65BDF /* UserAccount.swift in Sources */,
 				A00CDE6C1C5A533A0009D6E6 /* WelcomeViewController.swift in Sources */,
 				A007F07A1C529BA000523691 /* BaseTableViewController.swift in Sources */,
+				A0FEE85A1C5CE7FC00EE0406 /* NSDate+Category.swift in Sources */,
 				A0F90F861C57202400F65BDF /* NetworkTools.swift in Sources */,
 				A0B9F63C1C5BCF8D002DBE40 /* StatusTableViewCell.swift in Sources */,
 				A00481AD1C523CC80071EFFF /* HomeTableViewController.swift in Sources */,
