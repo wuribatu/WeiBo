@@ -40,13 +40,13 @@ class WelcomeViewController: UIViewController {
 
         self.bottomCons?.constant = -UIScreen.mainScreen().bounds.height -  self.bottomCons!.constant
         // 3.执行动画
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
+        UIView.animateWithDuration(2, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
             // 头像动画
             self.view.layoutIfNeeded()
             }) { (_) -> Void in
                 
                 // 文本动画
-                UIView.animateWithDuration( 0.5 , delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
+                UIView.animateWithDuration( 2 , delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
                     self.messageLabel.alpha = 1.0
                     }, completion: { (_) -> Void in
                         NSNotificationCenter.defaultCenter().postNotificationName(XMGSwitchRootViewControllerKey, object: true)
