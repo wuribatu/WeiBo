@@ -30,13 +30,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = defaultController()
         window?.makeKeyAndVisible()
     
-        print(isNewupdate())
+//        print(isNewupdate())
         
         return true
     }
     
     func switchRootViewController(notify: NSNotification) {
-        print(notify.object)
+//        print(notify.object)
         if notify.object as! Bool {
             window?.rootViewController = MainViewController()
         } else {

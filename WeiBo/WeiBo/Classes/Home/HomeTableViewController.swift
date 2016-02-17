@@ -32,8 +32,8 @@ class HomeTableViewController: BaseTableViewController {
         }
         
         tableView.registerClass(StatusTableViewCell.self, forCellReuseIdentifier: HomeIdentifier)
-        tableView.estimatedRowHeight = 200
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 200
+//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         setupNav()
@@ -98,6 +98,14 @@ class HomeTableViewController: BaseTableViewController {
         po.presentFrame = CGRect(x: 100, y: 56, width: 200, height: 350)
         return po
     }()
+    
+    // 缓存行高
+    var rowCache = [Int: CGFloat]()
+    
+    override func didReceiveMemoryWarning() {
+        // 清空缓存
+        rowCache.removeAll()
+    }
 }
 
 extension HomeTableViewController {
@@ -112,5 +120,22 @@ extension HomeTableViewController {
         cell.status = status
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let status = statuses![indexPath.row]
+        
+        if let height = rowCache[status.id] {
+//            print("从缓存获取")
+            return height
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(HomeIdentifier) as! StatusTableViewCell
+       
+        
+        let rowHeight = cell.rowHeight(status)
+        rowCache[status.id] = rowHeight
+//        print("重新计算")
+        return rowHeight
     }
 }

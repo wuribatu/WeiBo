@@ -38,7 +38,7 @@ extension BaseTableViewController: VisitorViewDelegate {
     }
     
     func registerBtnWillClick() {
-        print(__FUNCTION__)
-        print(NetworkTools.shareNetwordTools())
+//        print(__FUNCTION__)
+//        print(NetworkTools.shareNetwordTools())
     }
 }
