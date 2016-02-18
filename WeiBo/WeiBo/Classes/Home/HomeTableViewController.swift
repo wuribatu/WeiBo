@@ -31,7 +31,7 @@ class HomeTableViewController: BaseTableViewController {
             return
         }
         
-        tableView.registerClass(StatusTableViewCell.self, forCellReuseIdentifier: HomeIdentifier)
+        tableView.registerClass(StatusForwardTableViewCell.self, forCellReuseIdentifier: HomeIdentifier)
 //        tableView.estimatedRowHeight = 200
 //        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None

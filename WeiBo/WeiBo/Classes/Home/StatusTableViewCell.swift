@@ -15,6 +15,7 @@ class StatusTableViewCell: UITableViewCell {
     
     var pictureWidthCons: NSLayoutConstraint?
     var pictureHeightCons: NSLayoutConstraint?
+    var pictureTopCons: NSLayoutConstraint?
     
     var status: Status? {
         didSet {
@@ -28,7 +29,7 @@ class StatusTableViewCell: UITableViewCell {
             // 1.2设置配图的尺寸
             pictureWidthCons?.constant = size.width
             pictureHeightCons?.constant = size.height
-            
+            pictureTopCons?.constant = size.height == 0 ? 0 : 10
         }
     }
 
@@ -39,7 +40,7 @@ class StatusTableViewCell: UITableViewCell {
         setupUI()
     }
     
-    private func setupUI(){
+    func setupUI(){
         contentView.addSubview(topView)
         contentView.addSubview(contentLabel)
         contentView.addSubview(footerView)
@@ -49,11 +50,7 @@ class StatusTableViewCell: UITableViewCell {
         
         topView.xmg_AlignInner(type: XMG_AlignType.TopLeft, referView: contentView, size: CGSize(width: width, height: 60))
         contentLabel.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: topView, size: nil, offset: CGPoint(x: 10, y: 10))
-        
-        let cons = pictureView.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: contentLabel, size: CGSizeZero, offset: CGPoint(x: 0, y: 10))
-        pictureWidthCons = pictureView.xmg_Constraint(cons, attribute: NSLayoutAttribute.Width)
-        pictureHeightCons = pictureView.xmg_Constraint(cons, attribute: NSLayoutAttribute.Height)
-        
+                
         footerView.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: pictureView, size: CGSize(width: width, height: 44), offset: CGPoint(x: -10, y: 10))
     }
     
@@ -70,7 +67,7 @@ class StatusTableViewCell: UITableViewCell {
     // MARK: - 懒加载
     private lazy var topView: StatusTableViewTopView = StatusTableViewTopView()
     /// 正文
-    private lazy var contentLabel: UILabel =
+    lazy var contentLabel: UILabel =
     {
         let label = UILabel.createLabel(UIColor.darkGrayColor(), fontSize: 15)
         label.numberOfLines = 0
@@ -79,9 +76,9 @@ class StatusTableViewCell: UITableViewCell {
         return label
     }()
     /// 底部工具条
-    private lazy var footerView: StatusTableViewBottomView = StatusTableViewBottomView()
+    lazy var footerView: StatusTableViewBottomView = StatusTableViewBottomView()
 
     /// 配图
-    private lazy var pictureView: StatusPictureView = StatusPictureView()
+    lazy var pictureView: StatusPictureView = StatusPictureView()
 }
 
