@@ -10,6 +10,17 @@ import UIKit
 
 class StatusForwardTableViewCell: StatusTableViewCell {
 
+    // 重写父类的didSet 不会对父类的操作造成影响
+    // 只需要重写方法 做想做的事
+    // 注意：如果父类是didSet 之类也必须是didSet
+    override var status: Status? {
+        didSet {
+            let name = status?.retweeted_status?.user?.name ?? ""
+            let text = status?.retweeted_status?.text ?? ""
+            forwardLabel.text = name + ":" + text
+        }
+    }
+    
     override func setupUI() {
         super.setupUI()
         
@@ -19,7 +30,6 @@ class StatusForwardTableViewCell: StatusTableViewCell {
         forwardButton.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: contentLabel, size: nil, offset: CGPoint(x: -10, y: 10))
         forwardButton.xmg_AlignVertical(type: XMG_AlignType.TopRight, referView: footerView, size: nil)
         forwardLabel.xmg_AlignInner(type: XMG_AlignType.TopLeft, referView: forwardButton, size: nil, offset: CGPoint(x: 10, y: 10))
-        forwardLabel.text = "算了可点击"
         
         let cons = pictureView.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: forwardLabel, size: CGSizeZero, offset: CGPoint(x: 0, y: 10))
         pictureWidthCons = pictureView.xmg_Constraint(cons, attribute: NSLayoutAttribute.Width)

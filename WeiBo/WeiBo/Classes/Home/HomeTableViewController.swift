@@ -31,7 +31,8 @@ class HomeTableViewController: BaseTableViewController {
             return
         }
         
-        tableView.registerClass(StatusForwardTableViewCell.self, forCellReuseIdentifier: HomeIdentifier)
+        tableView.registerClass(StatusNormalTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.NormalCell.rawValue)
+        tableView.registerClass(StatusForwardTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.ForwardCell.rawValue)
 //        tableView.estimatedRowHeight = 200
 //        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
@@ -114,9 +115,10 @@ extension HomeTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(HomeIdentifier, forIndexPath: indexPath) as! StatusTableViewCell
-        
         let status = statuses![indexPath.row]
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status), forIndexPath: indexPath) as! StatusTableViewCell
+        
         cell.status = status
         
         return cell
@@ -130,9 +132,9 @@ extension HomeTableViewController {
             return height
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(HomeIdentifier) as! StatusTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status)) as! StatusTableViewCell
        
-        
+    
         let rowHeight = cell.rowHeight(status)
         rowCache[status.id] = rowHeight
 //        print("重新计算")

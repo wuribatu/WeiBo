@@ -49,9 +49,16 @@ class Status: NSObject {
         }
     }
     
+    /// 缓存配图
     var storedPicURLS: [NSURL]?
+    var pictureURLS: [NSURL]? {
+        return retweeted_status != nil ? retweeted_status?.storedPicURLS : storedPicURLS
+    }
     /// 用户信息
     var user: User?
+    
+    /// 转发微博
+    var retweeted_status: Status?
     
     class func loadStatuses(finished: (models: [Status]?, error: NSError?)->()) ->() {
         let path = "2/statuses/home_timeline.json"
@@ -82,11 +89,11 @@ class Status: NSObject {
 //            }
             
             //Swift2.0新语法 如果status.storedPicURLS == nil 进入else
-            guard let _ = status.storedPicURLS else {
+            guard let _ = status.pictureURLS else {
                 print("来这了")
                 continue
             }
-            for url in status.storedPicURLS! {
+            for url in status.pictureURLS! {
                 dispatch_group_enter(group)
                 SDWebImageManager.sharedManager().downloadImageWithURL(url, options: SDWebImageOptions(rawValue: 0), progress: nil, completed: { (_, _, _, _, _)  -> Void in
 //                    print("OK")
@@ -118,6 +125,14 @@ class Status: NSObject {
             user = User(dict: value as! [String : AnyObject])
             return
         }
+        
+        // 判断是否是转发微博
+        
+        if "retweeted_status" == key {
+            retweeted_status = Status(dict: value as! [String : AnyObject])
+            return
+        }
+        
         super.setValue(value, forKey: key)
     }
 

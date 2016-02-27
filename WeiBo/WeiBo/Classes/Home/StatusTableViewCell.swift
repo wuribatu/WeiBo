@@ -11,6 +11,22 @@ import SDWebImage
 
 let PictureViewCellReuseIdentifier = "PictureViewCellReuseIdentifier"
 
+/**
+ 保存cell的重用标示
+ 
+ - NormalCell:  原创的微博的重用标示
+ - ForwardCell: 转发微博的重用标示
+ */
+enum StatusTableViewCellIdentifier: String {
+    case NormalCell  = "NormalCell"
+    case ForwardCell = "ForwardCell"
+    
+    // 如果在枚举中用static修饰一个方法，相当于类中的class修饰的方法
+    static func cellID(status: Status) ->String {
+        return status.retweeted_status != nil ? ForwardCell.rawValue : NormalCell.rawValue
+    }
+}
+
 class StatusTableViewCell: UITableViewCell {
     
     var pictureWidthCons: NSLayoutConstraint?
@@ -24,7 +40,7 @@ class StatusTableViewCell: UITableViewCell {
                        
             // 设置配图的尺寸
             // 1.1根据模型计算配图的尺寸
-            pictureView.status = status
+            pictureView.status = status?.retweeted_status != nil ? status?.retweeted_status : status
             let size = pictureView.calculateImageSize()
             // 1.2设置配图的尺寸
             pictureWidthCons?.constant = size.width
