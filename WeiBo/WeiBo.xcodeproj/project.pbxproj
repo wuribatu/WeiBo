@@ -34,6 +34,8 @@
 		A00CDE6C1C5A533A0009D6E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00CDE6B1C5A533A0009D6E6 /* WelcomeViewController.swift */; };
 		A02844051C75BE550014B2F0 /* StatusForwardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02844041C75BE550014B2F0 /* StatusForwardTableViewCell.swift */; };
 		A02844071C75D4750014B2F0 /* StatusNormalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02844061C75D4750014B2F0 /* StatusNormalTableViewCell.swift */; };
+		A04AD4AE1C83E158002FE9FF /* HomeRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A04AD4AD1C83E158002FE9FF /* HomeRefreshView.xib */; };
+		A04AD4B01C83E1DE002FE9FF /* HomeRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04AD4AF1C83E1DE002FE9FF /* HomeRefreshControl.swift */; };
 		A072ABF41C747DC400AAC36B /* StatusPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A072ABF31C747DC400AAC36B /* StatusPictureView.swift */; };
 		A0A8EBB91C6877A8007739B5 /* StatusTableViewBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8EBB81C6877A8007739B5 /* StatusTableViewBottomView.swift */; };
 		A0A8EBBB1C6879B7007739B5 /* StatusTableViewTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A8EBBA1C6879B7007739B5 /* StatusTableViewTopView.swift */; };
@@ -103,6 +105,8 @@
 		A00CDE6B1C5A533A0009D6E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		A02844041C75BE550014B2F0 /* StatusForwardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusForwardTableViewCell.swift; sourceTree = "<group>"; };
 		A02844061C75D4750014B2F0 /* StatusNormalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusNormalTableViewCell.swift; sourceTree = "<group>"; };
+		A04AD4AD1C83E158002FE9FF /* HomeRefreshView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeRefreshView.xib; sourceTree = "<group>"; };
+		A04AD4AF1C83E1DE002FE9FF /* HomeRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRefreshControl.swift; sourceTree = "<group>"; };
 		A072ABF31C747DC400AAC36B /* StatusPictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusPictureView.swift; sourceTree = "<group>"; };
 		A0A8EBB81C6877A8007739B5 /* StatusTableViewBottomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTableViewBottomView.swift; sourceTree = "<group>"; };
 		A0A8EBBA1C6879B7007739B5 /* StatusTableViewTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTableViewTopView.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 				A003C9141C5417F300575C7A /* QRCode */,
 				A003C9091C53D8D600575C7A /* Popover */,
 				A00481AC1C523CC80071EFFF /* HomeTableViewController.swift */,
+				A04AD4AD1C83E158002FE9FF /* HomeRefreshView.xib */,
+				A04AD4AF1C83E1DE002FE9FF /* HomeRefreshControl.swift */,
 				A0B9F63B1C5BCF8D002DBE40 /* StatusTableViewCell.swift */,
 				A02844061C75D4750014B2F0 /* StatusNormalTableViewCell.swift */,
 				A02844041C75BE550014B2F0 /* StatusForwardTableViewCell.swift */,
@@ -462,6 +468,7 @@
 			files = (
 				A003C90B1C53DC1200575C7A /* PopoverViewController.storyboard in Resources */,
 				A00481B71C5256E60071EFFF /* MainVCSettings.json in Resources */,
+				A04AD4AE1C83E158002FE9FF /* HomeRefreshView.xib in Resources */,
 				A004817C1C5228A90071EFFF /* Assets.xcassets in Resources */,
 				A003C9161C54184B00575C7A /* QRCodeViewController.storyboard in Resources */,
 			);
@@ -554,6 +561,7 @@
 				A0FC3BD01C558D2D00872A56 /* QRCodeCardViewController.swift in Sources */,
 				A00481AB1C523CAE0071EFFF /* MainViewController.swift in Sources */,
 				A02844051C75BE550014B2F0 /* StatusForwardTableViewCell.swift in Sources */,
+				A04AD4B01C83E1DE002FE9FF /* HomeRefreshControl.swift in Sources */,
 				A0B9F63E1C5BE8EE002DBE40 /* UILabel+Category.swift in Sources */,
 				A0B9F6381C5BB2D4002DBE40 /* Status.swift in Sources */,
 				A003C9061C53BFCC00575C7A /* UIBarButtonItem+Category.swift in Sources */,

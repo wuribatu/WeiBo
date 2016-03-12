@@ -65,7 +65,7 @@ class Status: NSObject {
         let params = ["access_token": UserAccount.loadAccount()!.access_token!]
         NetworkTools.shareNetwordTools().GET(path, parameters: params, success: { (_, JSON) -> Void in
             
-            print(JSON)
+//            print(JSON)
             let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
             
             //缓存配图数组

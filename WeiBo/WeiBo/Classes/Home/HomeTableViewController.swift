@@ -37,12 +37,23 @@ class HomeTableViewController: BaseTableViewController {
 //        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
+        // 添加下拉刷新控件
+        refreshControl = HomeRefreshControl()
+        refreshControl?.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
+        
+        
         setupNav()
         
 //        加载微博数据
         loadData()
     }
     
+    /**
+     获取微博数据
+     如果想调用一个私有的方法:
+     1.去掉private
+     2.@objc, 当做OC方法来处理
+     */
     private func loadData() {
         Status.loadStatuses {(models, error) -> () in
             if error != nil {
