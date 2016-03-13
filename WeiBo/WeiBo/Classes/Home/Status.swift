@@ -60,12 +60,18 @@ class Status: NSObject {
     /// 转发微博
     var retweeted_status: Status?
     
-    class func loadStatuses(finished: (models: [Status]?, error: NSError?)->()) ->() {
+    class func loadStatuses(since_id: Int, finished: (models: [Status]?, error: NSError?)->()) ->() {
         let path = "2/statuses/home_timeline.json"
-        let params = ["access_token": UserAccount.loadAccount()!.access_token!]
+        var params = ["access_token": UserAccount.loadAccount()!.access_token!]
+        
+        // 下拉刷新
+        if since_id > 0 {
+            params["since_id"] = "\(since_id)"
+        }
+        
         NetworkTools.shareNetwordTools().GET(path, parameters: params, success: { (_, JSON) -> Void in
             
-//            print(JSON)
+//            print(JSON)lo
             let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
             
             //缓存配图数组
@@ -80,7 +86,11 @@ class Status: NSObject {
     }
     
     class func cacheStatusImages(list: [Status], finished: (models: [Status]?, error: NSError?) ->()) {
-//        print("abc".cacheDir())
+
+        if list.count == 0 {
+            finished(models: list, error: nil)
+        }
+        
         let group = dispatch_group_create()
         for status in list {
             // 判断当前是否有配图，没有跳过

@@ -54,12 +54,24 @@ class HomeTableViewController: BaseTableViewController {
      1.去掉private
      2.@objc, 当做OC方法来处理
      */
-    private func loadData() {
-        Status.loadStatuses {(models, error) -> () in
+    func loadData() {
+        
+        let since_id = statuses?.first?.id ?? 0
+        
+        Status.loadStatuses(since_id) {(models, error) -> () in
+            
             if error != nil {
                 return
             }
-            self.statuses = models
+            
+            if since_id > 0 {
+                self.statuses = models! + self.statuses! 
+            } else {
+                self.statuses = models
+            }
+            
+            self.refreshControl?.endRefreshing()
+//            self.statuses = models
         }
     }
     
