@@ -18,7 +18,7 @@ class HomeTableViewController: BaseTableViewController {
             tableView.reloadData()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,7 +40,6 @@ class HomeTableViewController: BaseTableViewController {
         // 添加下拉刷新控件
         refreshControl = HomeRefreshControl()
         refreshControl?.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
-        
         
         setupNav()
         
@@ -64,14 +63,39 @@ class HomeTableViewController: BaseTableViewController {
                 return
             }
             
-            if since_id > 0 {
-                self.statuses = models! + self.statuses! 
+            if since_id > 0 { // 下拉刷新
+                self.statuses = models! + self.statuses!
+                self.showNewStatusConut(models?.count ?? 0)
             } else {
                 self.statuses = models
             }
             
             self.refreshControl?.endRefreshing()
 //            self.statuses = models
+        }
+    }
+    
+    private func showNewStatusConut(count: Int) {
+        newStatusLabel.hidden = false
+        newStatusLabel.text = (count == 0) ? "没有刷新到微博" : "刷新到\(count)条微博数据"
+        
+        /*
+        let rect = newStatusLabel.frame
+        UIView.animateWithDuration(2, animations: { () -> Void in
+            UIView.setAnimationRepeatAutoreverses(true)
+            self.newStatusLabel.frame = CGRectOffset(rect, 0, 3 * rect.height)
+            }) { (_) -> Void in
+                self.newStatusLabel.frame = rect
+        }
+        */
+        UIView.animateWithDuration(2, animations: { () -> Void in
+            self.newStatusLabel.transform = CGAffineTransformMakeTranslation(0, self.newStatusLabel.frame.height)
+            }) { (_) -> Void in
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    self.newStatusLabel.transform = CGAffineTransformIdentity
+                    }, completion: { (_) -> Void in
+                        self.newStatusLabel.hidden = true
+                })
         }
     }
     
@@ -121,6 +145,21 @@ class HomeTableViewController: BaseTableViewController {
         let po = PopoverAnimator()
         po.presentFrame = CGRect(x: 100, y: 56, width: 200, height: 350)
         return po
+    }()
+    
+    private lazy var newStatusLabel :UILabel = {
+        let label = UILabel()
+        label.backgroundColor = UIColor.orangeColor()
+        label.textAlignment = NSTextAlignment.Center
+        label.font = UIFont.systemFontOfSize(14)
+        label.textColor = UIColor.whiteColor()
+        
+        let height: CGFloat = 44
+        label.frame = CGRect(x: 0, y: 0  * height, width: UIScreen.mainScreen().bounds.size.width, height: height)
+        self.navigationController?.navigationBar.insertSubview(label, atIndex: 0)
+        label.hidden = true
+        
+        return label;
     }()
     
     // 缓存行高

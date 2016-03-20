@@ -89,6 +89,8 @@ class Status: NSObject {
 
         if list.count == 0 {
             finished(models: list, error: nil)
+            
+            return
         }
         
         let group = dispatch_group_create()
