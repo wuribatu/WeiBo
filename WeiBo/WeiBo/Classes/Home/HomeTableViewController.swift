@@ -47,6 +47,8 @@ class HomeTableViewController: BaseTableViewController {
         loadData()
     }
     
+    /// 下拉标记
+    var pullupRefreshFlag = false
     /**
      获取微博数据
      如果想调用一个私有的方法:
@@ -55,9 +57,15 @@ class HomeTableViewController: BaseTableViewController {
      */
     func loadData() {
         
-        let since_id = statuses?.first?.id ?? 0
-        
-        Status.loadStatuses(since_id) {(models, error) -> () in
+        // 1.默认是上拉
+        var since_id = statuses?.first?.id ?? 0
+        var max_id = 0
+        // 2.判断是否是上拉
+        if pullupRefreshFlag {
+            since_id = 0
+            max_id = statuses?.last?.id ?? 0
+        }
+        Status.loadStatuses(since_id, max_id :max_id) {(models, error) -> () in
             
             if error != nil {
                 return
@@ -66,6 +74,8 @@ class HomeTableViewController: BaseTableViewController {
             if since_id > 0 { // 下拉刷新
                 self.statuses = models! + self.statuses!
                 self.showNewStatusConut(models?.count ?? 0)
+            } else if max_id > 0 {
+                self.statuses = self.statuses! + models!
             } else {
                 self.statuses = models
             }
@@ -110,8 +120,8 @@ class HomeTableViewController: BaseTableViewController {
     
     // MARK: -设置导航栏
     private func setupNav() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem.creatBarButtonItem("navigationbar_friendattention", target: self, action: "leftBtnClick")
-        navigationItem.rightBarButtonItem = UIBarButtonItem.creatBarButtonItem("navigationbar_pop", target: self, action: "rightBtnClick")
+        navigationItem.leftBarButtonItem = UIBarButtonItem.creatBarButtonItem("navigationbar_friendattention", target: self, action: #selector(HomeTableViewController.leftBtnClick))
+        navigationItem.rightBarButtonItem = UIBarButtonItem.creatBarButtonItem("navigationbar_pop", target: self, action: #selector(HomeTableViewController.rightBtnClick))
         
         let titleBtn = TitleButton()
         titleBtn.setTitle("乌日巴图 ", forState: .Normal)
@@ -119,7 +129,7 @@ class HomeTableViewController: BaseTableViewController {
         titleBtn.setImage(UIImage(named: "navigationbar_arrow_down"), forState: .Normal)
         titleBtn.setImage(UIImage(named: "navigationbar_arrow_up"), forState: .Selected)
         titleBtn.sizeToFit()
-        titleBtn.addTarget(self, action: "titleBtnClick:", forControlEvents: .TouchUpInside)
+        titleBtn.addTarget(self, action: #selector(HomeTableViewController.titleBtnClick(_:)), forControlEvents: .TouchUpInside)
         navigationItem.titleView = titleBtn
     }
     
@@ -132,7 +142,7 @@ class HomeTableViewController: BaseTableViewController {
     }
         
     func leftBtnClick() {
-        print(__FUNCTION__)
+        print(#function)
     }
     
     func rightBtnClick() {
@@ -182,6 +192,13 @@ extension HomeTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status), forIndexPath: indexPath) as! StatusTableViewCell
         
         cell.status = status
+        
+        let count = statuses?.count ?? 0
+        if indexPath.row == count - 1 {
+//            print("加载更多");
+            pullupRefreshFlag = true
+            loadData()
+        }
         
         return cell
     }
