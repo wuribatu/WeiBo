@@ -23,7 +23,7 @@ class OAuthViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "图哥的微博"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "关闭", style: .Plain, target: self, action: "close")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "关闭", style: .Plain, target: self, action: #selector(OAuthViewController.close))
         
         let urlStr = "https://api.weibo.com/oauth2/authorize?client_id=\(WB_App_Key)&redirect_uri=\(WB_redirect_uri)"
         let url = NSURL(string: urlStr)

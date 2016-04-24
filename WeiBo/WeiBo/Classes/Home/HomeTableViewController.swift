@@ -22,8 +22,8 @@ class HomeTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: BTPopoverAnimatorWillShow, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "change", name: BTPopoverAnimatorWillDismiss, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillShow, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillDismiss, object: nil)
         
         
         if !userLogin {
@@ -39,7 +39,7 @@ class HomeTableViewController: BaseTableViewController {
         
         // 添加下拉刷新控件
         refreshControl = HomeRefreshControl()
-        refreshControl?.addTarget(self, action: "loadData", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(HomeTableViewController.loadData), forControlEvents: UIControlEvents.ValueChanged)
         
         setupNav()
         

@@ -41,9 +41,16 @@ class Status: NSObject {
     var pic_urls: [[String: AnyObject]]? {
         didSet {
             storedPicURLS = [NSURL]()
+            storedLargePicURLS = [NSURL]()
             for dict in pic_urls! {
-                if let urlStr = dict["thumbnail_pic"] {
-                    storedPicURLS?.append(NSURL(string: urlStr as! String)!)
+                if let urlStr = dict["thumbnail_pic"] as? String{
+                    
+                    // 1.将字符串转为URL保存在数组中
+                    storedPicURLS?.append(NSURL(string: urlStr)!)
+                    
+                    // 2.处理大图
+                    let largeURLStr = urlStr.stringByReplacingOccurrencesOfString("thumbnail", withString: "large")
+                    storedLargePicURLS?.append(NSURL(string: largeURLStr)!)
                 }
             }
         }
@@ -51,9 +58,19 @@ class Status: NSObject {
     
     /// 缓存配图
     var storedPicURLS: [NSURL]?
+    
+    /// 缓存配图大图
+    var storedLargePicURLS: [NSURL]?
     var pictureURLS: [NSURL]? {
         return retweeted_status != nil ? retweeted_status?.storedPicURLS : storedPicURLS
     }
+    
+    /// 定义一个计算属性 用于转发 原创 的配图大图
+    var largePictureURLS: [NSURL]? {
+        return retweeted_status != nil ? retweeted_status?.storedLargePicURLS : storedLargePicURLS
+    }
+    
+    
     /// 用户信息
     var user: User?
     

@@ -24,6 +24,7 @@ class StatusPictureView: UICollectionView {
         
         registerClass(PictureViewCell.self, forCellWithReuseIdentifier: PictureViewCellReuseIdentifier)
         dataSource = self
+        delegate = self
         pictureLayout.minimumInteritemSpacing = 10
         pictureLayout.minimumLineSpacing = 10
         backgroundColor = UIColor.whiteColor()
@@ -111,7 +112,7 @@ class StatusPictureView: UICollectionView {
     }
 }
 
-extension StatusPictureView: UICollectionViewDataSource {
+extension StatusPictureView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return status?.storedPicURLS?.count ?? 0
     }
@@ -121,6 +122,11 @@ extension StatusPictureView: UICollectionViewDataSource {
         cell.backgroundColor = UIColor.yellowColor()
         cell.imageURL = status?.storedPicURLS![indexPath.row]
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath.row)
+        print(status?.storedLargePicURLS![indexPath.item])
     }
 }
 
