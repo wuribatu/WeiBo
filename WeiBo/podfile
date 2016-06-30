@@ -3,7 +3,4 @@ use_frameworks!
 pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'SVProgressHUD'
-pod 'Alamofire', '~> 3.0'
-pod 'SnapKit', '~> 0.19.1'
-pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
-pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+

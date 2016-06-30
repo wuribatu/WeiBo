@@ -8,13 +8,13 @@
 
 import UIKit
 
-extension NSDate {
+extension Date {
 
-    class func dateWithString(time: String) -> NSDate {
-        let formatter = NSDateFormatter()
+    static func dateWithString(_ time: String) -> Date {
+        let formatter = DateFormatter()
         formatter.dateFormat = "EEE MMM d HH:mm:ss Z yyyy"
-        formatter.locale = NSLocale(localeIdentifier: "en")
-        let createdDate = formatter.dateFromString(time)!
+        formatter.locale = Locale(localeIdentifier: "en")
+        let createdDate = formatter.date(from: time)!
         
         return createdDate
     }
@@ -28,10 +28,10 @@ extension NSDate {
      yyyy-MM-dd HH:mm(更早期)
      */
     var descDate: String {
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current()
         // 1.判断是否是今天
         if calendar.isDateInToday(self) {
-            let since = Int(NSDate().timeIntervalSinceDate(self))
+            let since = Int(Date().timeIntervalSince(self))
             
             if since < 60 {
                 return "刚刚"
@@ -48,16 +48,16 @@ extension NSDate {
         } else {
             formatterStr = "MM-dd " + formatterStr
             
-            let coms = calendar.components(NSCalendarUnit.Year, fromDate: self, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))
+            let coms = calendar.components(Calendar.Unit.year, from: self, to: Date(), options: Calendar.Options(rawValue: 0))
             if coms.year >= 1 {
                 formatterStr = "yyyy-" + formatterStr
             }
         }
         
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = formatterStr
-        formatter.locale = NSLocale(localeIdentifier: "en")
-        let createdDate = formatter.stringFromDate(self)
+        formatter.locale = Locale(localeIdentifier: "en")
+        let createdDate = formatter.string(from: self)
         
         return createdDate
     }

@@ -18,9 +18,9 @@ class HomeRefreshControl: UIRefreshControl {
     private func setupUI() {
         addSubview(refreshView)
         
-        refreshView.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: CGSize(width: 170, height: 60))
+        refreshView.xmg_AlignInner(type: XMG_AlignType.center, referView: self, size: CGSize(width: 170, height: 60))
         
-        addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.New, context: nil)
+        addObserver(self, forKeyPath: "frame", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     /// 定义变量记录是否需要旋转监听
@@ -28,14 +28,14 @@ class HomeRefreshControl: UIRefreshControl {
     
     /// 记录圈圈是否需要增加动画
     private var loadingViewAnimFlag = false
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    override func observeValue(forKeyPath keyPath: String?, of object: AnyObject?, change: [NSKeyValueChangeKey : AnyObject]?, context: UnsafeMutablePointer<Void>?) {
 //         print(frame.origin.y)
         
         if frame.origin.y >= 0 {
             return
         }
         
-        if refreshing && !loadingViewAnimFlag {
+        if isRefreshing && !loadingViewAnimFlag {
             
             loadingViewAnimFlag = true
             refreshView.startLoadingViewAnim()
@@ -83,35 +83,35 @@ class HomeRefreshView: UIView {
     /**
      旋转箭头
      */
-    func rotaionArrowIcon(flag: Bool) {
+    func rotaionArrowIcon(_ flag: Bool) {
         var angle = M_PI
         angle += flag ? 0.01 : -0.01
         
-        UIView.animateWithDuration(0.2) { () -> Void in
-            self.arrowIcon.transform = CGAffineTransformRotate(self.arrowIcon.transform, CGFloat(angle))
+        UIView.animate(withDuration: 0.2) { () -> Void in
+            self.arrowIcon.transform = self.arrowIcon.transform.rotate(CGFloat(angle))
         }
     }
     
     func startLoadingViewAnim() {
-        tipView.hidden = true
+        tipView.isHidden = true
         
         let anim = CABasicAnimation(keyPath: "transform.rotation")
         anim.toValue = 2 * M_PI
         anim.duration = 1
         anim.repeatCount = MAXFLOAT
         
-        anim.removedOnCompletion = false
-        loadingView.layer.addAnimation(anim, forKey: nil)
+        anim.isRemovedOnCompletion = false
+        loadingView.layer.add(anim, forKey: nil)
     }
     
     func stopLoadingViewAnim() {
         
-        tipView.hidden = false
+        tipView.isHidden = false
         
         loadingView.layer.removeAllAnimations()
     }
     
     class func refreshView() -> HomeRefreshView {
-        return NSBundle.mainBundle().loadNibNamed("HomeRefreshView", owner: nil, options: nil).last as! HomeRefreshView
+        return Bundle.main().loadNibNamed("HomeRefreshView", owner: nil, options: nil).last as! HomeRefreshView
     }
 }

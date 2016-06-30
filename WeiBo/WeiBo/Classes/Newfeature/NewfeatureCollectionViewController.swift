@@ -25,30 +25,30 @@ class NewfeatureCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.collectionView!.registerClass(NewfeatureCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(NewfeatureCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
     // MARK: UICollectionViewDataSource
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pageCount
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! NewfeatureCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! NewfeatureCell
     
         // Configure the cell
-        cell.backgroundColor = UIColor.redColor()
-        cell.imageIndex = indexPath.item
+        cell.backgroundColor = UIColor.red()
+        cell.imageIndex = (indexPath as NSIndexPath).item
         
     
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         let path = collectionView.indexPathsForVisibleItems().last!
-        if path.item == (pageCount - 1) {
-            let cell = collectionView.cellForItemAtIndexPath(path) as! NewfeatureCell
+        if (path as NSIndexPath).item == (pageCount - 1) {
+            let cell = collectionView.cellForItem(at: path) as! NewfeatureCell
             cell.startAnimation()
         }
     }
@@ -63,14 +63,14 @@ class NewfeatureCell: UICollectionViewCell {
     }
     
     private func startAnimation() {
-        startButton.hidden = false
-        startButton.transform = CGAffineTransformMakeScale(0, 0)
-        startButton.userInteractionEnabled = false
+        startButton.isHidden = false
+        startButton.transform = CGAffineTransform(scaleX: 0, y: 0)
+        startButton.isUserInteractionEnabled = false
         
-        UIView.animateWithDuration(2.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
-            self.startButton.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: 2.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10, options: UIViewAnimationOptions(rawValue: 0), animations: { () -> Void in
+            self.startButton.transform = CGAffineTransform.identity
             }, completion: { (_) -> Void in
-                self.startButton.userInteractionEnabled = true
+                self.startButton.isUserInteractionEnabled = true
         })
     }
     
@@ -88,22 +88,22 @@ class NewfeatureCell: UICollectionViewCell {
         contentView.addSubview(startButton)
         
         iconView.xmg_Fill(contentView)
-        startButton.xmg_AlignInner(type: XMG_AlignType.BottomCenter, referView: contentView, size: nil, offset: CGPointMake(0, -160))
+        startButton.xmg_AlignInner(type: XMG_AlignType.bottomCenter, referView: contentView, size: nil, offset: CGPoint(x: 0, y: -160))
     }
     
     private lazy var iconView = UIImageView()
     private lazy var startButton: UIButton = {
         let btn = UIButton()
-        btn.setBackgroundImage(UIImage(named: "new_feature_button"), forState: .Normal)
-        btn.setBackgroundImage(UIImage(named: "new_feature_button_highlighted"), forState: .Highlighted)
-        btn.hidden = true
-        btn.addTarget(self, action: #selector(NewfeatureCell.startBtnClick), forControlEvents: .TouchUpInside)
+        btn.setBackgroundImage(UIImage(named: "new_feature_button"), for: UIControlState())
+        btn.setBackgroundImage(UIImage(named: "new_feature_button_highlighted"), for: .highlighted)
+        btn.isHidden = true
+        btn.addTarget(self, action: #selector(NewfeatureCell.startBtnClick), for: .touchUpInside)
         
         return btn
     }()
     
     func startBtnClick() {
-        NSNotificationCenter.defaultCenter().postNotificationName(XMGSwitchRootViewControllerKey, object: true)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: XMGSwitchRootViewControllerKey), object: true)
     }
 }
 
@@ -111,17 +111,17 @@ private class NewfeatureLayout: UICollectionViewFlowLayout {
     
     // 准备布局
     // 什么时候调用? 1.先调用一个有多少行cell 2.调用准备布局 3.调用返回cell
-    override func prepareLayout()
+    override func prepare()
     {
         // 1.设置layout布局
-        itemSize = UIScreen.mainScreen().bounds.size
+        itemSize = UIScreen.main().bounds.size
         minimumInteritemSpacing = 0
         minimumLineSpacing = 0
-        scrollDirection = UICollectionViewScrollDirection.Horizontal
+        scrollDirection = UICollectionViewScrollDirection.horizontal
         
         // 2.设置collectionView的属性
         collectionView?.showsHorizontalScrollIndicator = false
         collectionView?.bounces = false
-        collectionView?.pagingEnabled = true
+        collectionView?.isPagingEnabled = true
     }
 }

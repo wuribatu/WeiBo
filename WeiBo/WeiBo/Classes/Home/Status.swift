@@ -15,7 +15,7 @@ class Status: NSObject {
         didSet {
 //            created_at = "Sat Jan 1 21:37:09 +0800 2016"
             // 1.将字符串转换为时间
-            let createdDate = NSDate.dateWithString(created_at!)
+            let createdDate = Date.dateWithString(created_at!)
             // 2.获取格式化之后的时间字符串
             
             created_at = createdDate.descDate
@@ -30,9 +30,9 @@ class Status: NSObject {
         didSet {
             if let str = source {
                 if str != "" {
-                    let starLocation = (str as NSString).rangeOfString(">").location + 1
-                    let length = (str as NSString).rangeOfString("<", options: NSStringCompareOptions.BackwardsSearch).location - starLocation
-                    source = "来自:" + (str as NSString).substringWithRange(NSMakeRange(starLocation, length))
+                    let starLocation = (str as NSString).range(of: ">").location + 1
+                    let length = (str as NSString).range(of: "<", options: NSString.CompareOptions.backwardsSearch).location - starLocation
+                    source = "来自:" + (str as NSString).substring(with: NSMakeRange(starLocation, length))
                 }
             }
         }
@@ -40,33 +40,33 @@ class Status: NSObject {
     /// 配图数组
     var pic_urls: [[String: AnyObject]]? {
         didSet {
-            storedPicURLS = [NSURL]()
-            storedLargePicURLS = [NSURL]()
+            storedPicURLS = [URL]()
+            storedLargePicURLS = [URL]()
             for dict in pic_urls! {
                 if let urlStr = dict["thumbnail_pic"] as? String{
                     
                     // 1.将字符串转为URL保存在数组中
-                    storedPicURLS?.append(NSURL(string: urlStr)!)
+                    storedPicURLS?.append(URL(string: urlStr)!)
                     
                     // 2.处理大图
-                    let largeURLStr = urlStr.stringByReplacingOccurrencesOfString("thumbnail", withString: "large")
-                    storedLargePicURLS?.append(NSURL(string: largeURLStr)!)
+                    let largeURLStr = urlStr.replacingOccurrences(of: "thumbnail", with: "large")
+                    storedLargePicURLS?.append(URL(string: largeURLStr)!)
                 }
             }
         }
     }
     
     /// 缓存配图
-    var storedPicURLS: [NSURL]?
+    var storedPicURLS: [URL]?
     
     /// 缓存配图大图
-    var storedLargePicURLS: [NSURL]?
-    var pictureURLS: [NSURL]? {
+    var storedLargePicURLS: [URL]?
+    var pictureURLS: [URL]? {
         return retweeted_status != nil ? retweeted_status?.storedPicURLS : storedPicURLS
     }
     
     /// 定义一个计算属性 用于转发 原创 的配图大图
-    var largePictureURLS: [NSURL]? {
+    var largePictureURLS: [URL]? {
         return retweeted_status != nil ? retweeted_status?.storedLargePicURLS : storedLargePicURLS
     }
     
@@ -77,7 +77,7 @@ class Status: NSObject {
     /// 转发微博
     var retweeted_status: Status?
     
-    class func loadStatuses(since_id: Int,max_id: Int, finished: (models: [Status]?, error: NSError?)->()) ->() {
+    class func loadStatuses(_ since_id: Int,max_id: Int, finished: (models: [Status]?, error: NSError?)->()) ->() {
         let path = "2/statuses/home_timeline.json"
         var params = ["access_token": UserAccount.loadAccount()!.access_token!]
         
@@ -91,7 +91,7 @@ class Status: NSObject {
             params["max_id"] = "\(max_id - 1)"
         }
         
-        NetworkTools.shareNetwordTools().GET(path, parameters: params, success: { (_, JSON) -> Void in
+        NetworkTools.shareNetwordTools().get(path, parameters: params, success: { (_, JSON) -> Void in
             
 //            print(JSON)lo
             let models = dict2Model(JSON!["statuses"] as! [[String: AnyObject]])
@@ -107,7 +107,7 @@ class Status: NSObject {
         }
     }
     
-    class func cacheStatusImages(list: [Status], finished: (models: [Status]?, error: NSError?) ->()) {
+    class func cacheStatusImages(_ list: [Status], finished: (models: [Status]?, error: NSError?) ->()) {
 
         if list.count == 0 {
             finished(models: list, error: nil)
@@ -115,7 +115,7 @@ class Status: NSObject {
             return
         }
         
-        let group = dispatch_group_create()
+        let group = DispatchGroup()
         for status in list {
             // 判断当前是否有配图，没有跳过
 //            if status.storedPicURLS == nil {
@@ -128,19 +128,19 @@ class Status: NSObject {
                 continue
             }
             for url in status.pictureURLS! {
-                dispatch_group_enter(group)
-                SDWebImageManager.sharedManager().downloadImageWithURL(url, options: SDWebImageOptions(rawValue: 0), progress: nil, completed: { (_, _, _, _, _)  -> Void in
+                group.enter()
+                SDWebImageManager.shared().downloadImage(with: url, options: SDWebImageOptions(rawValue: 0), progress: nil, completed: { (_, _, _, _, _)  -> Void in
 //                    print("OK")
-                    dispatch_group_leave(group)
+                    group.leave()
                 })
             }
         }
-        dispatch_group_notify(group, dispatch_get_main_queue(), { () -> Void in
+        group.notify(queue: DispatchQueue.main, execute: { () -> Void in
             finished(models: list, error: nil)
         })
     }
     
-    class func dict2Model(list: [[String: AnyObject]]) -> [Status] {
+    class func dict2Model(_ list: [[String: AnyObject]]) -> [Status] {
         var models = [Status]()
         for dict in list {
             models.append(Status(dict: dict))
@@ -151,10 +151,10 @@ class Status: NSObject {
     
     init(dict: [String: AnyObject]) {
         super.init()
-        setValuesForKeysWithDictionary(dict)
+        setValuesForKeys(dict)
     }
     
-    override func setValue(value: AnyObject?, forKey key: String) {
+    override func setValue(_ value: AnyObject?, forKey key: String) {
         if "user" == key {
             user = User(dict: value as! [String : AnyObject])
             return
@@ -170,13 +170,13 @@ class Status: NSObject {
         super.setValue(value, forKey: key)
     }
 
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
         
     }
     
     let properties = ["created_at", "id", "text", "source", "pic_urls"]
     override var description: String {
-        let dict = dictionaryWithValuesForKeys(properties)
+        let dict = dictionaryWithValues(forKeys: properties)
         return "\(dict)"
     }
 }

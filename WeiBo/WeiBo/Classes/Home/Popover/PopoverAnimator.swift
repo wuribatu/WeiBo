@@ -13,49 +13,49 @@ let BTPopoverAnimatorWillDismiss = "BTPopoverAnimatorWillDismiss"
 
 class PopoverAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning {
     var isPresented = false
-    var presentFrame = CGRectZero
+    var presentFrame = CGRect.zero
     
     /// 告诉系统谁负责转场动画
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        let po = PopoverPresentationController(presentedViewController: presented, presentingViewController: presenting)
+    func presentationController(forPresentedViewController presented: UIViewController, presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
+        let po = PopoverPresentationController(presentedViewController: presented, presenting: presenting!)
         po.presentFrame = presentFrame
         
         return po
     }
     
     /// 告诉系统谁负责展现动画
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresentedController presented: UIViewController, presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresented = true
-        NSNotificationCenter.defaultCenter().postNotificationName(BTPopoverAnimatorWillShow, object: self)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: BTPopoverAnimatorWillShow), object: self)
         
         return self
     }
     
     /// 告诉系统谁负责消失动画
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissedController dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         isPresented = false
-        NSNotificationCenter.defaultCenter().postNotificationName(BTPopoverAnimatorWillDismiss, object: self)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: BTPopoverAnimatorWillDismiss), object: self)
         
         return self
     }
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }
     
     /// 如何开始动画 开始 消失 都会调用该方法
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
         if isPresented {
             ///拿到展示视图
-            let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
-            transitionContext.containerView()?.addSubview(toView!)
-            toView?.transform = CGAffineTransformMakeScale(1.0, 0.0)
+            let toView = transitionContext.view(forKey: UITransitionContextToViewKey)
+            transitionContext.containerView().addSubview(toView!)
+            toView?.transform = CGAffineTransform(scaleX: 1.0, y: 0.0)
             
             // 设置锚点
             toView?.layer.anchorPoint = CGPoint(x: 0.5, y: 0)
-            UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+            UIView.animate(withDuration: transitionDuration(transitionContext), animations: { () -> Void in
                 // 清空transform
-                toView?.transform = CGAffineTransformIdentity
+                toView?.transform = CGAffineTransform.identity
                 }) { (_) -> Void in
                     // 动画结束 一定要告诉系统
                     // 如果不写 导致未知cuowu
@@ -63,10 +63,10 @@ class PopoverAnimator: NSObject, UIViewControllerTransitioningDelegate, UIViewCo
             }
             print("展开")
         } else {
-            let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+            let fromView = transitionContext.view(forKey: UITransitionContextFromViewKey)
             
-            UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
-                fromView?.transform = CGAffineTransformMakeScale(1.0, 0.000001)
+            UIView.animate(withDuration: transitionDuration(transitionContext), animations: { () -> Void in
+                fromView?.transform = CGAffineTransform(scaleX: 1.0, y: 0.000001)
                 }, completion: { (_) -> Void in
                     transitionContext.completeTransition(true)
             })

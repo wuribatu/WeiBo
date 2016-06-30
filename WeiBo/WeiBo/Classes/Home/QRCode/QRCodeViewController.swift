@@ -28,17 +28,17 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
     }
     
     // 名片点击
-    @IBAction func myCardBtnClick(sender: AnyObject) {
+    @IBAction func myCardBtnClick(_ sender: AnyObject) {
         navigationController?.pushViewController(QRCodeCardViewController(), animated: true)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         startScan()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // 1.开始冲击波动画
         startAnimation()
@@ -64,12 +64,12 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
         output.metadataObjectTypes = output.availableMetadataObjectTypes
         
         //5.设置代理 解析成功就会通知代理
-        output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+        output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         
         // 如果想实现扫描一张图片 设定区域
 //        output.rectOfInterest = CGRectMake(0.0, 0.0, 1.0, 1.0)
         // 添加预览图层
-        view.layer.insertSublayer(previewLayer, atIndex: 0)
+        view.layer.insertSublayer(previewLayer, at: 0)
         previewLayer.addSublayer(darwLayer)
         //6.告诉session开始扫描
         session.startRunning()
@@ -83,7 +83,7 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
         self.containerView.layoutIfNeeded()
         
         // 执行冲击波动画
-        UIView.animateWithDuration(2.0, animations: { () -> Void in
+        UIView.animate(withDuration: 2.0, animations: { () -> Void in
             // 1.修改约束
             self.scanLineCons.constant = self.containerHeightCons.constant
 //            self.scanLineCons.constant = 0
@@ -95,7 +95,7 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
     }
     
     // MARK: - UITabBarDelegate
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         // 1.修改容器的高度
         if item.tag == 100 {
             //            print("二维码")
@@ -112,8 +112,8 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
         startAnimation()
     }
 
-    @IBAction func closeBtnClick(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeBtnClick(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - 会话
@@ -123,7 +123,7 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
     // 拿到输入设备
     private lazy var deviceInput: AVCaptureDeviceInput? = {
         // 拿到摄像头
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         // 创建输入对象
         do {
@@ -141,14 +141,14 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
     ///  预览图层
     private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let lay = AVCaptureVideoPreviewLayer(session: self.session)
-        lay.frame = UIScreen.mainScreen().bounds
-        return lay
+        lay?.frame = UIScreen.main().bounds
+        return lay!
     }()
     
     // 绘制图层
     private lazy var darwLayer: CALayer = {
         let layer = CALayer()
-        layer.frame = UIScreen.mainScreen().bounds
+        layer.frame = UIScreen.main().bounds
         return layer
     }()
 }
@@ -156,7 +156,7 @@ class QRCodeViewController: UIViewController, UITabBarDelegate {
 extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     //只要解析到数据就会调用
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, from connection: AVCaptureConnection!) {
         resultLabel.text = metadataObjects.last?.stringValue
         
         clearConers()
@@ -165,7 +165,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         for object in metadataObjects {
             // 判断数据是否是当前设备可识别类型
             if object is AVMetadataMachineReadableCodeObject {
-                let codeObject = previewLayer.transformedMetadataObjectForMetadataObject(object as! AVMetadataObject) as! AVMetadataMachineReadableCodeObject
+                let codeObject = previewLayer.transformedMetadataObject(for: object as! AVMetadataObject) as! AVMetadataMachineReadableCodeObject
                 
                 drawCorners(codeObject)
             }
@@ -173,7 +173,7 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     // 绘制图形 codeObject: 坐标系对象
-    private func drawCorners(codeObject: AVMetadataMachineReadableCodeObject) {
+    private func drawCorners(_ codeObject: AVMetadataMachineReadableCodeObject) {
         
         if codeObject.corners.isEmpty {
             return
@@ -182,28 +182,29 @@ extension QRCodeViewController: AVCaptureMetadataOutputObjectsDelegate {
         // 创建一个图层
         let layer = CAShapeLayer()
         layer.lineWidth = 4
-        layer.strokeColor = UIColor.redColor().CGColor
-        layer.fillColor   = UIColor.clearColor().CGColor
+        layer.strokeColor = UIColor.red().cgColor
+        layer.fillColor   = UIColor.clear().cgColor
         
         // 路径
-        layer.path = UIBezierPath(rect: CGRect(x: 100, y: 100, width: 100, height: 100)).CGPath
+        layer.path = UIBezierPath(rect: CGRect(x: 100, y: 100, width: 100, height: 100)).cgPath
         
         let path = UIBezierPath()
-        var point = CGPointZero
+        var point = CGPoint.zero
         var index: Int = 0
         
-        CGPointMakeWithDictionaryRepresentation((codeObject.corners[index++] as! CFDictionaryRef), &point)
-        path.moveToPoint(point)
+        index += 1;
+        point.makeWithDictionaryRepresentation(codeObject.corners[index] as! CFDictionary)
+        path.move(to: point)
         
         while index < codeObject.corners.count {
-            CGPointMakeWithDictionaryRepresentation((codeObject.corners[index++] as! CFDictionaryRef), &point)
-            path.addLineToPoint(point)
+            point.makeWithDictionaryRepresentation(codeObject.corners[index] as! CFDictionary)
+            path.addLine(to: point)
         }
         
-        path.closePath()
+        path.close()
         
         // 绘制路径
-        layer.path = path.CGPath
+        layer.path = path.cgPath
         
         
         // 添加

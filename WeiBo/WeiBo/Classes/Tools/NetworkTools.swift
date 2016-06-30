@@ -12,7 +12,7 @@ import AFNetworking
 class NetworkTools: AFHTTPSessionManager {
     
     static let tools: NetworkTools = {
-        let baseUrl = NSURL(string: "https://api.weibo.com/")
+        let baseUrl = URL(string: "https://api.weibo.com/")
         let ts = NetworkTools(baseURL: baseUrl)
         ts.responseSerializer.acceptableContentTypes = NSSet(objects: "application/json", "text/json", "text/javascript", "text/plain") as? Set<String>
         

@@ -25,8 +25,8 @@ class BaseTableViewController: UITableViewController {
         visitorView = custView
         custView.delegate = self
         
-        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "注册", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(BaseTableViewController.registerBtnWillClick))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(BaseTableViewController.loginBtnWillClick))
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "注册", style: UIBarButtonItemStyle.plain, target: self, action: #selector(BaseTableViewController.registerBtnWillClick))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "登陆", style: UIBarButtonItemStyle.plain, target: self, action: #selector(BaseTableViewController.loginBtnWillClick))
     }
 }
 
@@ -34,7 +34,7 @@ extension BaseTableViewController: VisitorViewDelegate {
     func loginBtnWillClick() {
         let OAuthVC = OAuthViewController()
         let nav = UINavigationController(rootViewController: OAuthVC)
-        presentViewController(nav, animated: true, completion: nil)
+        present(nav, animated: true, completion: nil)
     }
     
     func registerBtnWillClick() {

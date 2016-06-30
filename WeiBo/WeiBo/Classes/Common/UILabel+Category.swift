@@ -9,10 +9,10 @@
 import UIKit
 
 extension UILabel {
-    class func createLabel(color: UIColor, fontSize: CGFloat) -> UILabel {
+    class func createLabel(_ color: UIColor, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         label.textColor = color
-        label.font = UIFont.systemFontOfSize(fontSize)
+        label.font = UIFont.systemFont(ofSize: fontSize)
         return label
     }
 }

@@ -16,7 +16,7 @@ class MainViewController: UITabBarController {
         addChildViewControllers()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupComposeBtn()
     }
@@ -25,26 +25,26 @@ class MainViewController: UITabBarController {
     private func setupComposeBtn() {
         tabBar.addSubview(composeBtn)
         
-        let width = UIScreen.mainScreen().bounds.size.width / CGFloat(viewControllers!.count)
+        let width = UIScreen.main().bounds.size.width / CGFloat(viewControllers!.count)
         let rect  = CGRect(x: 0, y: 0, width: width, height: 49)
-        composeBtn.frame = CGRectOffset(rect, width * 2, 0)
+        composeBtn.frame = rect.offsetBy(dx: width * 2, dy: 0)
     }
     
     func composeBtnClick() {
-        print(__FUNCTION__)
+        print(#function)
     }
     
     // MARK: - 添加所有子控制器
     private func addChildViewControllers() {
-        let path = NSBundle.mainBundle().pathForResource("MainVCSettings.json", ofType: nil)
+        let path = Bundle.main().pathForResource("MainVCSettings.json", ofType: nil)
         
         if let jsonPath = path {
-            let jsonData = NSData(contentsOfFile: jsonPath)
+            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath))
             
             do {//有可能发生异常的代码放到这里
                 //try  发生异常会调到catch中继续执行
                 //try! 发生异常直接崩溃
-                let dictArr = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.MutableContainers)
+                let dictArr = try JSONSerialization.jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions.mutableContainers)
                 for dict in dictArr as! [[String: String]]{
                     addChildViewController(dict["vcName"]!, title: dict["title"]!, imageName: dict["imageName"]!)
                 }
@@ -60,9 +60,9 @@ class MainViewController: UITabBarController {
         }
     }
     
-    private func addChildViewController(childControllerName: String, title: String, imageName: String) {
+    private func addChildViewController(_ childControllerName: String, title: String, imageName: String) {
 
-        let ns = NSBundle.mainBundle().infoDictionary!["CFBundleExecutable"] as! String
+        let ns = Bundle.main().infoDictionary!["CFBundleExecutable"] as! String
         let cls: AnyClass? = NSClassFromString(ns + "." + childControllerName)
         let vcCls = cls as! UIViewController.Type
         let vc = vcCls.init()
@@ -79,11 +79,11 @@ class MainViewController: UITabBarController {
     private lazy var composeBtn: UIButton = {
         let btn = UIButton()
         
-        btn.setImage(UIImage(named: "tabbar_compose_icon_add"), forState: UIControlState.Normal)
-        btn.setImage(UIImage(named: "tabbar_compose_icon_add_highlighted"), forState: UIControlState.Highlighted)
-        btn.setBackgroundImage(UIImage(named: "tabbar_compose_button"), forState: UIControlState.Normal)
-        btn.setBackgroundImage(UIImage(named: "tabbar_compose_button_highlighted"), forState: UIControlState.Highlighted)
-        btn.addTarget(self, action: "composeBtnClick", forControlEvents: UIControlEvents.TouchUpInside)
+        btn.setImage(UIImage(named: "tabbar_compose_icon_add"), for: UIControlState())
+        btn.setImage(UIImage(named: "tabbar_compose_icon_add_highlighted"), for: UIControlState.highlighted)
+        btn.setBackgroundImage(UIImage(named: "tabbar_compose_button"), for: UIControlState())
+        btn.setBackgroundImage(UIImage(named: "tabbar_compose_button_highlighted"), for: UIControlState.highlighted)
+        btn.addTarget(self, action: "composeBtnClick", for: UIControlEvents.touchUpInside)
         
         return btn
     }()

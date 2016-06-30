@@ -14,13 +14,13 @@ class UserAccount: NSObject, NSCoding {
     /// 寿命 单位秒
     var expires_in: NSNumber? {
         didSet { //有值就调用
-            expires_Date = NSDate(timeIntervalSinceNow: expires_in!.doubleValue)
+            expires_Date = Date(timeIntervalSinceNow: expires_in!.doubleValue)
             print(expires_Date)
         }
     }
     ///当前授权用户的uid
     var uid: String?
-    var expires_Date: NSDate?
+    var expires_Date: Date?
     var avatar_large: String? // 头像
     var screen_name: String? // 用户昵称
     
@@ -29,26 +29,26 @@ class UserAccount: NSObject, NSCoding {
 //        access_token = dict["access_token"] as? String
 //        expires_in = dict["expires_in"] as? NSNumber
 //        uid = dict["uid"] as? String
-        setValuesForKeysWithDictionary(dict)
+        setValuesForKeys(dict)
     }
     
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
         print(key)
     }
     
     // 打印对象
     override var description: String {
         let properties = ["access_token", "expires_in", "uid", "avatar_large", "screen_name"]
-        let dict = self.dictionaryWithValuesForKeys(properties)
+        let dict = self.dictionaryWithValues(forKeys: properties)
         return "\(dict)"
     }
     
-    func loadUserinfo(finished:(account: UserAccount?, error: NSError?) -> ()) {
+    func loadUserinfo(_ finished:(account: UserAccount?, error: NSError?) -> ()) {
         assert(access_token != nil, "没有授权")
         
         let path = "2/users/show.json"
         let params = ["access_token":access_token!, "uid":uid!]
-        NetworkTools.shareNetwordTools().GET(path, parameters: params, success: { (_, JSON) -> Void in
+        NetworkTools.shareNetwordTools().get(path, parameters: params, success: { (_, JSON) -> Void in
             print(JSON)
             if let dict = JSON as? [String: AnyObject] {
                 self.screen_name  = dict["screen_name"] as? String
@@ -92,11 +92,11 @@ class UserAccount: NSObject, NSCoding {
             return account
         }
         // 2.加载授权模型
-        account =  NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? UserAccount
+        account =  NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? UserAccount
         
         // 3.判断授权信息是否过期
         // 2020-09-08 03:49:39                       2020-09-09 03:49:39
-        if account?.expires_Date?.compare(NSDate()) == NSComparisonResult.OrderedAscending {
+        if account?.expires_Date?.compare(Date()) == ComparisonResult.orderedAscending {
             // 已经过期
             return nil
         }
@@ -106,21 +106,21 @@ class UserAccount: NSObject, NSCoding {
 
     // MARK: - NSCoding
     // 将对象写入到文件中
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(access_token, forKey: "access_token")
-        aCoder.encodeObject(expires_in, forKey: "expires_in")
-        aCoder.encodeObject(uid, forKey: "uid")
-        aCoder.encodeObject(expires_Date, forKey: "expires_Date")
-        aCoder.encodeObject(screen_name, forKey: "screen_name")
-        aCoder.encodeObject(avatar_large, forKey: "avatar_large")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(access_token, forKey: "access_token")
+        aCoder.encode(expires_in, forKey: "expires_in")
+        aCoder.encode(uid, forKey: "uid")
+        aCoder.encode(expires_Date, forKey: "expires_Date")
+        aCoder.encode(screen_name, forKey: "screen_name")
+        aCoder.encode(avatar_large, forKey: "avatar_large")
     }
     // 从文件中读取对象
     required init?(coder aDecoder: NSCoder) {
-        access_token = aDecoder.decodeObjectForKey("access_token") as? String
-        expires_in   = aDecoder.decodeObjectForKey("expires_in") as? NSNumber
-        uid          = aDecoder.decodeObjectForKey("uid") as? String
-        expires_Date = aDecoder.decodeObjectForKey("expires_Date") as? NSDate
-        screen_name  = aDecoder.decodeObjectForKey("screen_name")  as? String
-        avatar_large = aDecoder.decodeObjectForKey("avatar_large")  as? String
+        access_token = aDecoder.decodeObject(forKey: "access_token") as? String
+        expires_in   = aDecoder.decodeObject(forKey: "expires_in") as? NSNumber
+        uid          = aDecoder.decodeObject(forKey: "uid") as? String
+        expires_Date = aDecoder.decodeObject(forKey: "expires_Date") as? Date
+        screen_name  = aDecoder.decodeObject(forKey: "screen_name")  as? String
+        avatar_large = aDecoder.decodeObject(forKey: "avatar_large")  as? String
     }
 }

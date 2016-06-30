@@ -22,8 +22,8 @@ class HomeTableViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillShow, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillDismiss, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillShow, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillDismiss, object: nil)
         
         
         if !userLogin {
@@ -31,15 +31,15 @@ class HomeTableViewController: BaseTableViewController {
             return
         }
         
-        tableView.registerClass(StatusNormalTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.NormalCell.rawValue)
-        tableView.registerClass(StatusForwardTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.ForwardCell.rawValue)
+        tableView.register(StatusNormalTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.NormalCell.rawValue)
+        tableView.register(StatusForwardTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.ForwardCell.rawValue)
 //        tableView.estimatedRowHeight = 200
 //        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         // 添加下拉刷新控件
         refreshControl = HomeRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(HomeTableViewController.loadData), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(HomeTableViewController.loadData), for: UIControlEvents.valueChanged)
         
         setupNav()
         
@@ -85,8 +85,8 @@ class HomeTableViewController: BaseTableViewController {
         }
     }
     
-    private func showNewStatusConut(count: Int) {
-        newStatusLabel.hidden = false
+    private func showNewStatusConut(_ count: Int) {
+        newStatusLabel.isHidden = false
         newStatusLabel.text = (count == 0) ? "没有刷新到微博" : "刷新到\(count)条微博数据"
         
         /*
@@ -98,24 +98,24 @@ class HomeTableViewController: BaseTableViewController {
                 self.newStatusLabel.frame = rect
         }
         */
-        UIView.animateWithDuration(2, animations: { () -> Void in
-            self.newStatusLabel.transform = CGAffineTransformMakeTranslation(0, self.newStatusLabel.frame.height)
+        UIView.animate(withDuration: 2, animations: { () -> Void in
+            self.newStatusLabel.transform = CGAffineTransform(translationX: 0, y: self.newStatusLabel.frame.height)
             }) { (_) -> Void in
-                UIView.animateWithDuration(2, animations: { () -> Void in
-                    self.newStatusLabel.transform = CGAffineTransformIdentity
+                UIView.animate(withDuration: 2, animations: { () -> Void in
+                    self.newStatusLabel.transform = CGAffineTransform.identity
                     }, completion: { (_) -> Void in
-                        self.newStatusLabel.hidden = true
+                        self.newStatusLabel.isHidden = true
                 })
         }
     }
     
     func change() {
         let titleButton = navigationItem.titleView as! TitleButton
-        titleButton.selected = !titleButton.selected
+        titleButton.isSelected = !titleButton.isSelected
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
     // MARK: -设置导航栏
@@ -124,21 +124,21 @@ class HomeTableViewController: BaseTableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.creatBarButtonItem("navigationbar_pop", target: self, action: #selector(HomeTableViewController.rightBtnClick))
         
         let titleBtn = TitleButton()
-        titleBtn.setTitle("乌日巴图 ", forState: .Normal)
-        titleBtn.setTitleColor(UIColor.darkGrayColor(), forState: .Normal)
-        titleBtn.setImage(UIImage(named: "navigationbar_arrow_down"), forState: .Normal)
-        titleBtn.setImage(UIImage(named: "navigationbar_arrow_up"), forState: .Selected)
+        titleBtn.setTitle("乌日巴图 ", for: UIControlState())
+        titleBtn.setTitleColor(UIColor.darkGray(), for: UIControlState())
+        titleBtn.setImage(UIImage(named: "navigationbar_arrow_down"), for: UIControlState())
+        titleBtn.setImage(UIImage(named: "navigationbar_arrow_up"), for: .selected)
         titleBtn.sizeToFit()
-        titleBtn.addTarget(self, action: #selector(HomeTableViewController.titleBtnClick(_:)), forControlEvents: .TouchUpInside)
+        titleBtn.addTarget(self, action: #selector(HomeTableViewController.titleBtnClick(_:)), for: .touchUpInside)
         navigationItem.titleView = titleBtn
     }
     
-    func titleBtnClick(titleBtn: TitleButton) {
+    func titleBtnClick(_ titleBtn: TitleButton) {
         let sb = UIStoryboard(name: "PopoverViewController", bundle: nil)
         let vc = sb.instantiateInitialViewController()
         vc?.transitioningDelegate = popoverAnimator
-        vc?.modalPresentationStyle = .Custom
-        presentViewController(vc!, animated: true, completion: nil)
+        vc?.modalPresentationStyle = .custom
+        present(vc!, animated: true, completion: nil)
     }
         
     func leftBtnClick() {
@@ -148,7 +148,7 @@ class HomeTableViewController: BaseTableViewController {
     func rightBtnClick() {
         let sb = UIStoryboard(name: "QRCodeViewController", bundle: nil)
         let vc = sb.instantiateInitialViewController()
-        presentViewController(vc!, animated: true, completion: nil)
+        present(vc!, animated: true, completion: nil)
     }
     
     private lazy var popoverAnimator: PopoverAnimator = {
@@ -159,15 +159,15 @@ class HomeTableViewController: BaseTableViewController {
     
     private lazy var newStatusLabel :UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.orangeColor()
-        label.textAlignment = NSTextAlignment.Center
-        label.font = UIFont.systemFontOfSize(14)
-        label.textColor = UIColor.whiteColor()
+        label.backgroundColor = UIColor.orange()
+        label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = UIColor.white()
         
         let height: CGFloat = 44
-        label.frame = CGRect(x: 0, y: 0  * height, width: UIScreen.mainScreen().bounds.size.width, height: height)
-        self.navigationController?.navigationBar.insertSubview(label, atIndex: 0)
-        label.hidden = true
+        label.frame = CGRect(x: 0, y: 0  * height, width: UIScreen.main().bounds.size.width, height: height)
+        self.navigationController?.navigationBar.insertSubview(label, at: 0)
+        label.isHidden = true
         
         return label;
     }()
@@ -182,19 +182,19 @@ class HomeTableViewController: BaseTableViewController {
 }
 
 extension HomeTableViewController {
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return statuses?.count ?? 0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let status = statuses![indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let status = statuses![(indexPath as NSIndexPath).row]
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status), forIndexPath: indexPath) as! StatusTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: StatusTableViewCellIdentifier.cellID(status), for: indexPath) as! StatusTableViewCell
         
         cell.status = status
         
         let count = statuses?.count ?? 0
-        if indexPath.row == count - 1 {
+        if (indexPath as NSIndexPath).row == count - 1 {
 //            print("加载更多");
             pullupRefreshFlag = true
             loadData()
@@ -203,15 +203,15 @@ extension HomeTableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let status = statuses![indexPath.row]
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let status = statuses![(indexPath as NSIndexPath).row]
         
         if let height = rowCache[status.id] {
 //            print("从缓存获取")
             return height
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(StatusTableViewCellIdentifier.cellID(status)) as! StatusTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: StatusTableViewCellIdentifier.cellID(status)) as! StatusTableViewCell
        
     
         let rowHeight = cell.rowHeight(status)

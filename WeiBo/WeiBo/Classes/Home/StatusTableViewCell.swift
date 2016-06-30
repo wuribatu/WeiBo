@@ -22,7 +22,7 @@ enum StatusTableViewCellIdentifier: String {
     case ForwardCell = "ForwardCell"
     
     // 如果在枚举中用static修饰一个方法，相当于类中的class修饰的方法
-    static func cellID(status: Status) ->String {
+    static func cellID(_ status: Status) ->String {
         return status.retweeted_status != nil ? ForwardCell.rawValue : NormalCell.rawValue
     }
 }
@@ -62,18 +62,18 @@ class StatusTableViewCell: UITableViewCell {
         contentView.addSubview(footerView)
         contentView.addSubview(pictureView)
         
-        let width = UIScreen.mainScreen().bounds.width
+        let width = UIScreen.main().bounds.width
         
-        topView.xmg_AlignInner(type: XMG_AlignType.TopLeft, referView: contentView, size: CGSize(width: width, height: 60))
-        contentLabel.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: topView, size: nil, offset: CGPoint(x: 10, y: 10))
+        topView.xmg_AlignInner(type: XMG_AlignType.topLeft, referView: contentView, size: CGSize(width: width, height: 60))
+        contentLabel.xmg_AlignVertical(type: XMG_AlignType.bottomLeft, referView: topView, size: nil, offset: CGPoint(x: 10, y: 10))
                 
-        footerView.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: pictureView, size: CGSize(width: width, height: 44), offset: CGPoint(x: -10, y: 10))
+        footerView.xmg_AlignVertical(type: XMG_AlignType.bottomLeft, referView: pictureView, size: CGSize(width: width, height: 44), offset: CGPoint(x: -10, y: 10))
     }
     
-    func rowHeight(status:Status) -> CGFloat {
+    func rowHeight(_ status:Status) -> CGFloat {
         self.status = status
         self.layoutIfNeeded()
-        return CGRectGetMaxY(footerView.frame)
+        return footerView.frame.maxY
     }
         
     required init?(coder aDecoder: NSCoder) {
@@ -85,9 +85,9 @@ class StatusTableViewCell: UITableViewCell {
     /// 正文
     lazy var contentLabel: UILabel =
     {
-        let label = UILabel.createLabel(UIColor.darkGrayColor(), fontSize: 15)
+        let label = UILabel.createLabel(UIColor.darkGray(), fontSize: 15)
         label.numberOfLines = 0
-        label.preferredMaxLayoutWidth = UIScreen.mainScreen().bounds.width - 20
+        label.preferredMaxLayoutWidth = UIScreen.main().bounds.width - 20
         
         return label
     }()

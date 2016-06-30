@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIBarButtonItem {
-    class func creatBarButtonItem(imageName: String, target: AnyObject?, action: Selector) -> UIBarButtonItem{
+    class func creatBarButtonItem(_ imageName: String, target: AnyObject?, action: Selector) -> UIBarButtonItem{
         let btn = UIButton()
-        btn.setImage(UIImage(named: imageName), forState: UIControlState.Normal)
-        btn.setImage(UIImage(named: imageName + "_highlighted"), forState: UIControlState.Highlighted)
-        btn.addTarget(target, action: action, forControlEvents: .TouchUpInside)
+        btn.setImage(UIImage(named: imageName), for: UIControlState())
+        btn.setImage(UIImage(named: imageName + "_highlighted"), for: UIControlState.highlighted)
+        btn.addTarget(target, action: action, for: .touchUpInside)
         btn.sizeToFit()
         
         return UIBarButtonItem(customView: btn)

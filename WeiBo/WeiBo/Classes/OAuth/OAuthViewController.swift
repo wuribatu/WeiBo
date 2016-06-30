@@ -23,16 +23,16 @@ class OAuthViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.title = "图哥的微博"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "关闭", style: .Plain, target: self, action: #selector(OAuthViewController.close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "关闭", style: .plain, target: self, action: #selector(OAuthViewController.close))
         
         let urlStr = "https://api.weibo.com/oauth2/authorize?client_id=\(WB_App_Key)&redirect_uri=\(WB_redirect_uri)"
-        let url = NSURL(string: urlStr)
-        let requset = NSURLRequest(URL: url!)
+        let url = URL(string: urlStr)
+        let requset = URLRequest(url: url!)
         webView.loadRequest(requset)
     }
     
     func close() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     private lazy var webView: UIWebView = {
@@ -43,19 +43,19 @@ class OAuthViewController: UIViewController {
 }
 
 extension OAuthViewController: UIWebViewDelegate {
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        print(request.URL?.absoluteString)
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        print(request.url?.absoluteString)
         
         // absoluteString 请求头
-        let urlStr = request.URL!.absoluteString
-        if !urlStr.hasPrefix(WB_redirect_uri) {
+        let urlStr = request.url!.absoluteString
+        if !(urlStr?.hasPrefix(WB_redirect_uri))! {
             return true
         }
         
         let codeStr = "code="
         // query 参数
-        if request.URL!.query!.hasPrefix(codeStr) {
-            let code = request.URL?.query?.substringFromIndex(codeStr.endIndex)
+        if request.url!.query!.hasPrefix(codeStr) {
+            let code = request.url?.query?.substring(from: codeStr.endIndex)
             print(code)
             
             loadAccessToken(code!)
@@ -67,18 +67,18 @@ extension OAuthViewController: UIWebViewDelegate {
         return false
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
-        SVProgressHUD.showInfoWithStatus("正在加载...", maskType: .Black)
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        SVProgressHUD.showInfo(withStatus: "正在加载...", maskType: .black)
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         SVProgressHUD.dismiss()
     }
     
-    func loadAccessToken(code: String) {
+    func loadAccessToken(_ code: String) {
         let path = "oauth2/access_token"
         let params = ["client_id":WB_App_Key, "client_secret":WB_App_Secret, "grant_type":"authorization_code", "code":code, "redirect_uri":WB_redirect_uri]
-        NetworkTools.shareNetwordTools().POST(path, parameters: params, success: { (_, JSON) -> Void in
+        NetworkTools.shareNetwordTools().post(path, parameters: params, success: { (_, JSON) -> Void in
 //            2.00rwEKWCRXkScC3c0b82201aaROmVB
             let account = UserAccount(dict: JSON as! [String: AnyObject])
             
@@ -86,10 +86,10 @@ extension OAuthViewController: UIWebViewDelegate {
             account.loadUserinfo({ (account, error) -> () in
                 if account != nil {
                     account?.saveAccount()
-                    NSNotificationCenter.defaultCenter().postNotificationName(XMGSwitchRootViewControllerKey, object: false)
+                    NotificationCenter.default().post(name: NSNotification.Name(rawValue: XMGSwitchRootViewControllerKey), object: false)
                     return
                 }
-                SVProgressHUD.showInfoWithStatus("网络不给力...", maskType: .Black)
+                SVProgressHUD.showInfo(withStatus: "网络不给力...", maskType: .black)
             })
             // 归档模型
 //            account.saveAccount()

@@ -20,20 +20,20 @@ class StatusPictureView: UICollectionView {
     private var pictureLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
     init(){
-        super.init(frame: CGRectZero, collectionViewLayout: pictureLayout)
+        super.init(frame: CGRect.zero, collectionViewLayout: pictureLayout)
         
-        registerClass(PictureViewCell.self, forCellWithReuseIdentifier: PictureViewCellReuseIdentifier)
+        register(PictureViewCell.self, forCellWithReuseIdentifier: PictureViewCellReuseIdentifier)
         dataSource = self
         delegate = self
         pictureLayout.minimumInteritemSpacing = 10
         pictureLayout.minimumLineSpacing = 10
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white()
     }
 
     private class PictureViewCell: UICollectionViewCell {
-        var imageURL: NSURL? {
+        var imageURL: URL? {
             didSet {
-                iconImageView.sd_setImageWithURL(imageURL)
+                iconImageView.sd_setImage(with: imageURL)
             }
         }
         
@@ -64,18 +64,18 @@ class StatusPictureView: UICollectionView {
         // 2.如果没有配图zero
         if count == 0 || count == nil
         {
-            return CGSizeZero
+            return CGSize.zero
         }
         // 3.如果只有一张配图, 返回图片的实际大小
         if count == 1
         {
             // 3.1取出缓存的图片
             let key = status?.storedPicURLS!.first?.absoluteString
-            let image = SDWebImageManager.sharedManager().imageCache.imageFromDiskCacheForKey(key!)
+            let image = SDWebImageManager.shared().imageCache.imageFromDiskCache(forKey: key!)
             
-            pictureLayout.itemSize = image.size
+            pictureLayout.itemSize = (image?.size)!
             // 3.2返回缓存图片的尺寸
-            return image .size
+            return image! .size
         }
         // 4.如果有4张配图, 计算田字格的大小
         let width = 90
@@ -113,20 +113,20 @@ class StatusPictureView: UICollectionView {
 }
 
 extension StatusPictureView: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return status?.storedPicURLS?.count ?? 0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(PictureViewCellReuseIdentifier, forIndexPath: indexPath) as! PictureViewCell
-        cell.backgroundColor = UIColor.yellowColor()
-        cell.imageURL = status?.storedPicURLS![indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureViewCellReuseIdentifier, for: indexPath) as! PictureViewCell
+        cell.backgroundColor = UIColor.yellow()
+        cell.imageURL = status?.storedPicURLS![(indexPath as NSIndexPath).row]
         return cell
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print(indexPath.row)
-        print(status?.storedLargePicURLS![indexPath.item])
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print((indexPath as NSIndexPath).row)
+        print(status?.storedLargePicURLS![(indexPath as NSIndexPath).item])
     }
 }
 

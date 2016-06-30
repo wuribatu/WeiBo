@@ -27,15 +27,15 @@ class VisitorView: UIView {
         addSubview(loginButton)
         addSubview(registerButton)
 
-        iconView.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: nil)
-        homeIcon.xmg_AlignInner(type: XMG_AlignType.Center, referView: self, size: nil)
+        iconView.xmg_AlignInner(type: XMG_AlignType.center, referView: self, size: nil)
+        homeIcon.xmg_AlignInner(type: XMG_AlignType.center, referView: self, size: nil)
         
-        messageLabel.xmg_AlignHorizontal(type: XMG_AlignType.BottomCenter, referView: iconView, size: nil)
-        let widthCons = NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: 224)
+        messageLabel.xmg_AlignHorizontal(type: XMG_AlignType.bottomCenter, referView: iconView, size: nil)
+        let widthCons = NSLayoutConstraint(item: messageLabel, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 224)
         messageLabel.addConstraint(widthCons)
         
-        registerButton.xmg_AlignVertical(type: XMG_AlignType.BottomLeft, referView: messageLabel, size: CGSize(width: 100, height: 30), offset:CGPoint(x: 0, y: 20))
-        loginButton.xmg_AlignVertical(type: XMG_AlignType.BottomRight, referView: messageLabel, size: CGSize(width: 100, height: 30), offset:CGPoint(x: 0, y: 20))
+        registerButton.xmg_AlignVertical(type: XMG_AlignType.bottomLeft, referView: messageLabel, size: CGSize(width: 100, height: 30), offset:CGPoint(x: 0, y: 20))
+        loginButton.xmg_AlignVertical(type: XMG_AlignType.bottomRight, referView: messageLabel, size: CGSize(width: 100, height: 30), offset:CGPoint(x: 0, y: 20))
         maskBGView.xmg_Fill(maskBGView)
     }
 
@@ -43,8 +43,8 @@ class VisitorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupVisitorInfo(isHome: Bool, imageName: String, message: String) {
-        iconView.hidden   = !isHome
+    func setupVisitorInfo(_ isHome: Bool, imageName: String, message: String) {
+        iconView.isHidden   = !isHome
         homeIcon.image    = UIImage(named: imageName)
         messageLabel.text = message
         
@@ -60,9 +60,9 @@ class VisitorView: UIView {
         anim.repeatCount = MAXFLOAT
         
         //不移除动画
-        anim.removedOnCompletion = false
+        anim.isRemovedOnCompletion = false
         
-        iconView.layer.addAnimation(anim, forKey: nil)
+        iconView.layer.add(anim, forKey: nil)
     }
     
     // MARK: -按钮点击
@@ -94,7 +94,7 @@ class VisitorView: UIView {
         let label = UILabel()
         label.text = "23242dfffffffsafadfasdfsdfewrwerwerwerwe423242dfffffffsafadfasdfsdfewrwerwerwerwe4"
         label.numberOfLines = 0
-        label.textColor = UIColor.darkGrayColor()
+        label.textColor = UIColor.darkGray()
         
         return label
     }()
@@ -102,10 +102,10 @@ class VisitorView: UIView {
     // 登陆按钮
     private lazy var loginButton: UIButton = {
         let btn = UIButton()
-        btn.setTitle("登陆", forState: UIControlState.Normal)
-        btn.setTitleColor(UIColor.darkGrayColor(), forState: UIControlState.Normal)
-        btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), forState: UIControlState.Normal)
-        btn.addTarget(self, action: #selector(VisitorView.loginBtnClick), forControlEvents: UIControlEvents.TouchUpInside)
+        btn.setTitle("登陆", for: UIControlState())
+        btn.setTitleColor(UIColor.darkGray(), for: UIControlState())
+        btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), for: UIControlState())
+        btn.addTarget(self, action: #selector(VisitorView.loginBtnClick), for: UIControlEvents.touchUpInside)
         
         return btn
     }()
@@ -113,10 +113,10 @@ class VisitorView: UIView {
     // 注册按钮
     private lazy var registerButton: UIButton = {
         let btn = UIButton()
-        btn.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
-        btn.setTitle("注册", forState: UIControlState.Normal)
-        btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), forState: UIControlState.Normal)
-        btn.addTarget(self, action: "registerBtnClick", forControlEvents: UIControlEvents.TouchUpInside)
+        btn.setTitleColor(UIColor.orange(), for: UIControlState())
+        btn.setTitle("注册", for: UIControlState())
+        btn.setBackgroundImage(UIImage(named: "common_button_white_disable"), for: UIControlState())
+        btn.addTarget(self, action: #selector(VisitorView.registerBtnClick), for: UIControlEvents.touchUpInside)
 
         return btn
     }()
