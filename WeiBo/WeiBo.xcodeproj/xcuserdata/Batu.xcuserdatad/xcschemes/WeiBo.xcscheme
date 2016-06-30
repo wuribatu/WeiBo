@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A00481841C5228A90071EFFF"
-               BuildableName = "WeiBoTests.xctest"
-               BlueprintName = "WeiBoTests"
-               ReferencedContainer = "container:WeiBo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A004818F1C5228A90071EFFF"
-               BuildableName = "WeiBoUITests.xctest"
-               BlueprintName = "WeiBoUITests"
-               ReferencedContainer = "container:WeiBo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

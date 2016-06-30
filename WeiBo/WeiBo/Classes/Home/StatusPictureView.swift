@@ -112,6 +112,10 @@ class StatusPictureView: UICollectionView {
     }
 }
 
+let BTStatusPictureViewSelected  = "BTStatusPictureViewSelected"
+let BTStatusPictureViewIndexKey  = "BTStatusPictureViewIndexKey"
+let BTStatusPictureViewURLsKey   = "BTStatusPictureViewURLsKey"
+
 extension StatusPictureView: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return status?.storedPicURLS?.count ?? 0
@@ -127,6 +131,13 @@ extension StatusPictureView: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print((indexPath as NSIndexPath).row)
         print(status?.storedLargePicURLS![(indexPath as NSIndexPath).item])
+
+        if let sta = status?.storedPicURLS {
+            let info = [BTStatusPictureViewIndexKey: indexPath, BTStatusPictureViewURLsKey: sta]
+            NotificationCenter.default().post(name: NSNotification.Name(rawValue: BTStatusPictureViewSelected), object: self, userInfo: info as [NSObject: AnyObject])
+        } else {
+            print("error bt");
+        }
     }
 }
 

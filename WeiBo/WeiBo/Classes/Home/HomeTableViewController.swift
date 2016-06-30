@@ -24,7 +24,7 @@ class HomeTableViewController: BaseTableViewController {
         
         NotificationCenter.default().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillShow, object: nil)
         NotificationCenter.default().addObserver(self, selector: #selector(HomeTableViewController.change), name: BTPopoverAnimatorWillDismiss, object: nil)
-        
+        NotificationCenter.default().addObserver(self, selector: #selector(HomeTableViewController.showPhotoBrowser), name: BTStatusPictureViewSelected, object: nil)
         
         if !userLogin {
             visitorView.setupVisitorInfo(true, imageName: "visitordiscover_feed_image_house", message: "关注一些人，回这里看看有什么惊喜")
@@ -33,8 +33,6 @@ class HomeTableViewController: BaseTableViewController {
         
         tableView.register(StatusNormalTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.NormalCell.rawValue)
         tableView.register(StatusForwardTableViewCell.self, forCellReuseIdentifier: StatusTableViewCellIdentifier.ForwardCell.rawValue)
-//        tableView.estimatedRowHeight = 200
-//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         
         // 添加下拉刷新控件
@@ -81,7 +79,6 @@ class HomeTableViewController: BaseTableViewController {
             }
             
             self.refreshControl?.endRefreshing()
-//            self.statuses = models
         }
     }
     
@@ -89,15 +86,6 @@ class HomeTableViewController: BaseTableViewController {
         newStatusLabel.isHidden = false
         newStatusLabel.text = (count == 0) ? "没有刷新到微博" : "刷新到\(count)条微博数据"
         
-        /*
-        let rect = newStatusLabel.frame
-        UIView.animateWithDuration(2, animations: { () -> Void in
-            UIView.setAnimationRepeatAutoreverses(true)
-            self.newStatusLabel.frame = CGRectOffset(rect, 0, 3 * rect.height)
-            }) { (_) -> Void in
-                self.newStatusLabel.frame = rect
-        }
-        */
         UIView.animate(withDuration: 2, animations: { () -> Void in
             self.newStatusLabel.transform = CGAffineTransform(translationX: 0, y: self.newStatusLabel.frame.height)
             }) { (_) -> Void in
@@ -107,6 +95,22 @@ class HomeTableViewController: BaseTableViewController {
                         self.newStatusLabel.isHidden = true
                 })
         }
+    }
+    
+    func showPhotoBrowser(notif: NSNotification) {
+        print(notif.userInfo);
+        guard let indexPath = notif.userInfo?[BTStatusPictureViewIndexKey] as? NSIndexPath else {
+            print("没有index")
+            return
+        }
+        guard let urls = notif.userInfo?[BTStatusPictureViewURLsKey] as? [URL] else {
+            print("没有配图")
+            return
+        }
+        
+        let vc = PhotoBrowserViewController(index: indexPath.item, urls: urls)
+        present(vc, animated: true, completion: nil)
+        
     }
     
     func change() {
@@ -195,7 +199,8 @@ extension HomeTableViewController {
         
         let count = statuses?.count ?? 0
         if (indexPath as NSIndexPath).row == count - 1 {
-//            print("加载更多");
+
+            // loading more
             pullupRefreshFlag = true
             loadData()
         }
@@ -207,7 +212,8 @@ extension HomeTableViewController {
         let status = statuses![(indexPath as NSIndexPath).row]
         
         if let height = rowCache[status.id] {
-//            print("从缓存获取")
+
+            // reading from cache
             return height
         }
         
@@ -216,7 +222,8 @@ extension HomeTableViewController {
     
         let rowHeight = cell.rowHeight(status)
         rowCache[status.id] = rowHeight
-//        print("重新计算")
+
+        // calculation again
         return rowHeight
     }
 }
